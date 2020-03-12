@@ -2,7 +2,7 @@ commit ccd11dc79b20648f9a3c04939026c0481a94fe70
 Author: Samu Mäkinen <samu.makin@gmail.com>
 Date:   Thu Mar 12 22:39:48 2020 +0200
 
-    Committia
+    Committia HEVONEN!
 
  tiedostoja/file1  | 0
  tiedostoja/file2  | 0
