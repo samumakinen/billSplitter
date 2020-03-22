@@ -1,8 +1,8 @@
 # Software requirement specification (SRS)
 ## Description
-The Bill Splitter application (**BSA**) helps users when purchasing something for a group of people. One person can pay at a store and then use Bill Splitter to calculate the amount each participant owes them. Users can also save bills to history to keep track of them and review them later.
+The Bill Splitter application (**BSA**) helps users when purchasing something for a group of people. One person can pay at a store and then use Bill Splitter to calculate the amount each participant owes them. User can also save bills to history in order to keep track of them and review them later.
 ## Users
-No plans to have different levels of user privileges at this time, since there are no apparent reasons for that.
+Currently there are no plans to have different levels of user privileges since there is no apparent reason to do that.
 ## UI-draft
 BSA has been designed in a compact vertical layout so that it does not take up much space from on screen and also it is easier to transform it into a mobile app later after the course.
 
