@@ -6,7 +6,7 @@ No plans to have different levels of user privileges at this time, since there a
 ## UI-draft
 The Bill Splitter application (**BSA**) has been designed in a compact vertical layout so that it does not take up much space from on screen and also it is easier to transform it into a mobile app later after the course.
 
-BSA has three different interractive views for basic funcionality, as seen from the picture below. It has not yet been decided whether BSA should have a different view for opening a saved bill from the history or should the bill open to a completely new window. Latter would allow users to have multiple bills open at the same time when working on a computer.
+BSA has three different interractive views for basic funcionality, as seen from the picture below. It has not yet been decided whether BSA should have a different view for opening a saved bill from the history or should the bill open to a completely new window. Latter would allow users to have multiple bills open at the same time.
 <img src="https://github.com/samumakinen/ot-harjoitustyo/blob/master/documentation/resources/ui_draft_1.0.png">
 ## Basic functionality
 ### Login screen (before login)
