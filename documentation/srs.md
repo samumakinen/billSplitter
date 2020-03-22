@@ -8,7 +8,7 @@ The Bill Splitter application (**BSA**) has been designed in a compact vertical 
 
 BSA has three different interractive views for basic funcionality, as seen from the picture below. It has not yet been decided whether BSA should have a different view for opening a saved bill from the history or should the bill open to a completely new window. Latter would allow users to have multiple bills open at the same time.
 
-<img src="https://github.com/samumakinen/ot-harjoitustyo/blob/master/documentation/resources/ui_draft_1.1.png">
+<img src="https://github.com/samumakinen/ot-harjoitustyo/blob/master/documentation/resources/uidraft1.1.png">
 
 ## Basic functionality
 ### Login screen (before login)
