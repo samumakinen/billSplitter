@@ -19,6 +19,7 @@ BSA has been designed in a compact vertical layout so that it does not take up m
 - User can browse bills by their titles and enter **single bill view** by clicking on a bill on the list
 - User can enter the **new bill screen** to create a new bill
 - User can log out of the app (goes back to the **login screen**)
+- User can remove bills
 ### New bill screen
 - User can create a new bill
   - A bill must have a  *unique* title of at least 3 characters
