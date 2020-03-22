@@ -7,9 +7,19 @@ The Bill Splitter application (BSA) has been designed in a compact vertical layo
 BSA has three different interractive views for basic funcionality, as seen from the picture below. It has not yet been decided whether BSA should have a different view for opening a saved bill from the history or should the bill open to a completely new window. Latter would allow users to have multiple bills open at the same time when working on a computer.
 <img src="https://github.com/samumakinen/ot-harjoitustyo/blob/master/documentation/resources/ui_draft_1.0.png">
 ## Basic functionality
-### Login screen / before login
+### Login screen (before login)
 - User can login with their username by typing it into the field
   - If username exists the user is transferred to their history view
   - If username does not exist the user is notified to check spelling or create a new user
 - User can create a new user by typing their name and a made up username into the correct fields
   - The length of the username must be atleast 3 characters
+### History view (after login)
+- User can browse bills by their titles and enter a single bill view by clicking on a bill on the list
+- ?
+### New bill screen
+### A single bill view
+## Future development ideas
+- Ability to modify bills after creating them
+- Ability to add specific persons to each bill and keep track of who has payed off their share
+- Sort by Title, amount,
+- Search and filtering ability, by person, by amount etc.
