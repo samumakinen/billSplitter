@@ -3,4 +3,5 @@ This application helps users when purchasing something for a group of people. On
 ## Documentation
 
 [Software requirement specification (SRS)](https://github.com/samumakinen/ot-harjoitustyo/blob/master/documentation/srs.md)
+
 [Timesheet](https://github.com/samumakinen/ot-harjoitustyo/blob/master/documentation/timesheet.md)
