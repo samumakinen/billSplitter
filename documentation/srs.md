@@ -24,8 +24,8 @@ BSA has three different interractive views for basic funcionality, as seen from 
   - Number of payers must be a number that is at least 1
   - Amount of the bill must be a number, separated by a . (0.5, 2.0 or 15.5 for example)
   - Bottom of the screen shows the share of each payer
-  - User can cancel the creation (goes back to the **history view**)
-  - User can save the bill to the history (goes bac to the **history view**)
+- User can save the bill to the history (goes bac to the **history view**)
+- User can cancel the creation (goes back to the **history view**)
 ### A single bill view
 ## Future development ideas
 - Ability to modify bills after creating them
