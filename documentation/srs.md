@@ -35,5 +35,5 @@ BSA has been designed in a compact vertical layout so that it does not take up m
 ## Future development ideas
 - Ability to modify bills after creating them
 - Ability to add specific persons to each bill and keep track of who has payed off their share
-- Sort by Title, amount,
-- Search and filtering ability, by person, by amount etc.
+- Sort by Title, amount, etc.
+- Search by Title, amount, describtion, etc.
