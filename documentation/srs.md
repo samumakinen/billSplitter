@@ -36,5 +36,4 @@ BSA has been designed in a compact vertical layout so that it does not take up m
 - Ability to modify bills after creating them
 - Ability to add specific persons to each bill and keep track of who has payed off their share
 - Sort by Title, amount,
-- Deletion of bills from the history
 - Search and filtering ability, by person, by amount etc.
