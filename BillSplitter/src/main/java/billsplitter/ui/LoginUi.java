@@ -1,8 +1,6 @@
 
 package billsplitter.ui;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -15,13 +13,12 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class LoginUi implements Gui {
+public class LoginUi {
     private final TextField username = new TextField();
     private final TextField newName = new TextField();
     private final TextField newUsername = new TextField();
-    private final NewBillUi newBillUi = new NewBillUi();
+    private final HistoryUi historyUi = new HistoryUi();
     
-    @Override
     public void buildAndShowGui(Stage window) throws Exception {
         GridPane grid = buildGrid(window);
         VBox box = new VBox();
@@ -56,13 +53,7 @@ public class LoginUi implements Gui {
         grid.add(this.username, col, row);
         row++;
         Button login = new Button("Login");
-        login.setOnAction((ActionEvent event) -> {
-            try {
-                this.newBillUi.buildAndShowGui(window);
-            } catch (Exception ex) {
-                Logger.getLogger(LoginUi.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        });
+        login.setOnAction((ActionEvent event) -> window.setScene(historyUi.buildGui(window)));
         grid.add(login, col, row);
 
         // Heading 2

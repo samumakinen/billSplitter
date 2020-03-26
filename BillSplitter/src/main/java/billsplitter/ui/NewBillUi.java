@@ -15,36 +15,24 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-/**
- *
- * @author samumakinen
- */
-public class NewBillUi implements Gui {
+public class NewBillUi {
     
     private final TextField billTitle = new TextField();
     private final TextArea billDescription = new TextArea("Optional...");
     private final TextField billPayers = new TextField();
     private final TextField billAmount = new TextField();
     
-    /**
-     *
-     * @param window
-     * @throws Exception
-     */
-    @Override
-    public void buildAndShowGui(Stage window) throws Exception {
+    public Scene buildGui(Stage window) {
         
-        GridPane grid = buildGrid();
+        GridPane grid = buildGrid(window);
         VBox box = new VBox();
         Scene scene = new Scene(box);
         box.getChildren().add(grid);
-        window.setScene(scene);
-        window.setTitle("Bill Splitter");
-        window.show();
         
+        return scene;
     }
     
-    private GridPane buildGrid() {
+    private GridPane buildGrid(Stage window) {
         
         // Creating the GridPane
         GridPane grid = new GridPane();
@@ -90,14 +78,14 @@ public class NewBillUi implements Gui {
         // Result
         
         // Buttons
-        HBox hbox = buildButtons();
+        HBox hbox = buildButtons(window);
 	row += rowSpan;
 	grid.add(hbox, col, row);
         
         return grid;
     }
     
-    private HBox buildButtons() {
+    private HBox buildButtons(Stage window) {
         
         // Create HBox
         HBox box = new HBox();
@@ -105,7 +93,7 @@ public class NewBillUi implements Gui {
 
         // Cancel
         Button cancel = new Button("Cancel");
-        // cancel.setOnAction(event -> clearText());
+        cancel.setOnAction((ActionEvent event) -> window.setScene(new HistoryUi().buildGui(window)));
         box.getChildren().add(cancel);
         int top = 0, right = 5, bottom = 0, left = 5;
         HBox.setMargin(cancel, new Insets(top, right, bottom, left));

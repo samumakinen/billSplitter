@@ -2,7 +2,6 @@
 package billsplitter;
 
 import billsplitter.ui.LoginUi;
-import billsplitter.ui.NewBillUi;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
