@@ -6,8 +6,8 @@ This application helps users when purchasing something for a group of people. On
 
 [Manual](https://github.com/samumakinen/ot-harjoitustyo/blob/master/documentation/manual.md) TBA
 
-[Software requirement specification (SRS)](https://github.com/samumakinen/ot-harjoitustyo/blob/master/documentation/srs.md)
+[Software requirement specification (SRS)](documentation/srs.md)
 
 [Testing documentation](https://github.com/samumakinen/ot-harjoitustyo/blob/master/documentation/testing.md) TBA
 
-[Timesheet](https://github.com/samumakinen/ot-harjoitustyo/blob/master/documentation/timesheet.md)
+[Timesheet](documentation/timesheet.md)
