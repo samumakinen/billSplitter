@@ -1,8 +1,6 @@
 
 package billsplitter.ui;
 
-import java.io.File;
-import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -14,32 +12,41 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import org.apache.commons.io.FileUtils;
 
-public class NewBillUi {
+/**
+ *
+ * @author samumakinen
+ */
+public class NewBillUi implements Gui {
     
     private final TextField billTitle = new TextField();
     private final TextArea billDescription = new TextArea("Optional...");
     private final TextField billPayers = new TextField();
     private final TextField billAmount = new TextField();
-
-    public void buildAndShowGui(Stage stage) throws Exception {
+    
+    /**
+     *
+     * @param window
+     * @throws Exception
+     */
+    @Override
+    public void buildAndShowGui(Stage window) throws Exception {
         
-        GridPane grid = buildGrid(stage);
+        GridPane grid = buildGrid();
         VBox box = new VBox();
         Scene scene = new Scene(box);
         box.getChildren().add(grid);
-        stage.setScene(scene);
-        stage.setTitle("Bill Splitter");
-        stage.show();
+        window.setScene(scene);
+        window.setTitle("Bill Splitter");
+        window.show();
         
     }
     
-    private GridPane buildGrid(Stage stage) {
+    private GridPane buildGrid() {
         
+        // Creating the GridPane
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
         grid.setHgap(10);
@@ -83,57 +90,41 @@ public class NewBillUi {
         // Result
         
         // Buttons
-        HBox hbox = buildButtons(stage);
+        HBox hbox = buildButtons();
 	row += rowSpan;
 	grid.add(hbox, col, row);
         
         return grid;
     }
     
-        private HBox buildButtons(Stage stage) {
-            
+    private HBox buildButtons() {
+        
+        // Create HBox
         HBox box = new HBox();
         box.setAlignment(Pos.BASELINE_CENTER);
-        
+
         // Cancel
         Button cancel = new Button("Cancel");
-        	cancel.setOnAction(event -> clearText());
-	box.getChildren().add(cancel);
+        // cancel.setOnAction(event -> clearText());
+        box.getChildren().add(cancel);
         int top = 0, right = 5, bottom = 0, left = 5;
-	HBox.setMargin(cancel, new Insets(top, right, bottom, left));
+        HBox.setMargin(cancel, new Insets(top, right, bottom, left));
 
         // Clear
         Button clear = new Button("Clear");
-	clear.setOnAction((ActionEvent event) -> clearText());
-	box.getChildren().add(clear);
-	top = 0; right = 5; bottom = 0; left = 0;
-	HBox.setMargin(clear, new Insets(top, right, bottom, left));
-        
+        clear.setOnAction((ActionEvent event) -> clearText());
+        box.getChildren().add(clear);
+        top = 0; right = 5; bottom = 0; left = 0;
+        HBox.setMargin(clear, new Insets(top, right, bottom, left));
+
         // Save
         Button save = new Button("Save");
-	save.setOnAction((ActionEvent event) -> clearText());
-	box.getChildren().add(save);
-	top = 0; right = 5; bottom = 0; left = 0;
-	HBox.setMargin(save, new Insets(top, right, bottom, left));
-        
+        save.setOnAction((ActionEvent event) -> saveBill());
+        box.getChildren().add(save);
+        top = 0; right = 5; bottom = 0; left = 0;
+        HBox.setMargin(save, new Insets(top, right, bottom, left));
+
         return box;
-    }
-        
-    private void showHtml() throws IOException {
-        File htmlTemplateFile = new File("./src/main/resources/html/template.html");
-        String htmlString = FileUtils.readFileToString(htmlTemplateFile, "UTF-8");
-        String title = "Testilasku";
-        String description = "Description is optional";
-        String payers = "0";
-        String amount = "0.0";
-        String result = "0.0";
-        htmlString = htmlString.replace("$title", title);
-        htmlString = htmlString.replace("$description", description);
-        htmlString = htmlString.replace("$payers", payers);
-        htmlString = htmlString.replace("$amount", amount);
-        htmlString = htmlString.replace("$result", result);
-        File newHtmlFile = new File("./src/main/resources/html/new.html");
-        FileUtils.writeStringToFile(newHtmlFile, htmlString, "UTF-8");
     }
 
     private void clearText() {
@@ -141,6 +132,10 @@ public class NewBillUi {
         this.billDescription.clear();
         this.billPayers.clear();
         this.billAmount.clear();
+    }
+
+    private void saveBill() {
+        
     }
     
 }
