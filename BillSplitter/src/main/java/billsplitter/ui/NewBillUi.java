@@ -21,6 +21,7 @@ public class NewBillUi {
     private final TextArea billDescription = new TextArea("Optional...");
     private final TextField billPayers = new TextField();
     private final TextField billAmount = new TextField();
+    private String amountPerPerson = "";
     
     public Scene buildGui(Stage window) {
         
@@ -75,9 +76,15 @@ public class NewBillUi {
         row++;
         grid.add(this.billAmount, col, row);
         
-        // Result
+        row++;
+        grid.add(new Label(this.amountPerPerson), col, row);
         
-        // Buttons
+        row++;
+        Button btn = new Button("Calculate");
+        btn.setOnAction((ActionEvent event) -> updateAmount());
+        grid.add(btn, col, row);
+        
+        // Buttons at the bottom
         HBox hbox = buildButtons(window);
 	row += rowSpan;
 	grid.add(hbox, col, row);
@@ -124,6 +131,19 @@ public class NewBillUi {
 
     private void saveBill() {
         
+    }
+
+    private void updateAmount() {
+        
+        if (!this.billPayers.getText().isEmpty() && !this.billAmount.getText().isEmpty()) {
+        int payers = Integer.parseInt(this.billPayers.getText());
+        double amount = Double.parseDouble(this.billAmount.getText());
+        double result = amount / payers;
+        this.amountPerPerson = "Amount per person: " + String.valueOf(result);
+        System.out.println("result " + result);
+        } else {
+            System.out.println("Molemmissa kentissä pitää olla jotain!");
+        }
     }
     
 }
