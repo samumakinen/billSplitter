@@ -1,9 +1,11 @@
 
 package billsplitter.ui;
 
+import billsplitter.domain.LoginService;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -14,19 +16,26 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class LoginUi {
-    private final TextField username = new TextField();
-    private final TextField newName = new TextField();
-    private final TextField newUsername = new TextField();
-    private final HistoryUi historyUi = new HistoryUi();
+    private final TextField username;
+    private final TextField newName;
+    private final TextField newUsername;
+    private final LoginService loginService;
     
-    public void buildAndShowGui(Stage window) throws Exception {
+    public LoginUi(LoginService loginService) {
+        this.username = new TextField();
+        this.newName = new TextField();
+        this.newUsername = new TextField();
+        this.loginService = loginService;
+    }
+    
+    public Scene buildGui(Stage window) throws Exception {
+        
         GridPane grid = buildGrid(window);
         VBox box = new VBox();
         Scene scene = new Scene(box);
         box.getChildren().add(grid);
-        window.setScene(scene);
-        window.setTitle("Bill Splitter");
-        window.show();
+        
+        return scene;
     }
 
     private GridPane buildGrid(Stage window) {
@@ -39,7 +48,7 @@ public class LoginUi {
         int top = 5, right = 20, bottom = 15, left = 20;
         grid.setPadding(new Insets(top, right, bottom, left));
 
-        // Heading 1
+        // Heading (login)
         Text heading1 = new Text("Existing user login:");
         heading1.setId("heading");
         heading1.setStyle("-fx-font-size:22; -fx-font-weight:bold");
@@ -52,18 +61,16 @@ public class LoginUi {
         row++;
         grid.add(this.username, col, row);
         row++;
-        Button login = new Button("Login");
-        login.setOnAction((ActionEvent event) -> window.setScene(historyUi.buildGui(window)));
-        grid.add(login, col, row);
+        grid.add(buildLoginButton(window), col, row);
 
-        // Heading 2
+        // Heading (create new user)
         row += 4;
         Text heading2 = new Text("Create a new user:");
         heading2.setId("heading");
         heading2.setStyle("-fx-font-size:22; -fx-font-weight:bold");
         grid.add(heading2, col, row, colSpan, rowSpan);
         
-        // Create a new user
+        // Create new user
         row += 2;
         grid.add(new Label("Your name:"), col, row);
         row++;
@@ -73,10 +80,33 @@ public class LoginUi {
         row++;
         grid.add(this.newUsername, col, row);
         row++;
-        Button createNewUser = new Button("Create new user");
-        grid.add(createNewUser, col, row);
+        grid.add(buildCreateButton(window), col, row);
         
         return grid;
     }
-    
+
+    private Node buildLoginButton(Stage window) {
+        Button login = new Button("Login");
+        login.setOnAction((ActionEvent event) -> {
+            if (this.loginService.userExists(this.username.getText())) {
+                window.setScene(new HistoryUi().buildGui(window));
+            }
+        });
+        return login;
+    }
+
+    private Node buildCreateButton(Stage window) {
+        Button create = new Button("Create");
+        create.setOnAction((ActionEvent event) -> {
+            String response = this.loginService.createUser(this.newName.getText(), this.newUsername.getText());
+            String[] message = response.split(";");
+            if ("ERROR".equals(message[0])) {
+                System.out.println(message[1]);
+            } else {
+                System.out.println(message[1]);
+                window.setScene(new HistoryUi().buildGui(window));
+            }
+        });
+        return create;
+    }
 }

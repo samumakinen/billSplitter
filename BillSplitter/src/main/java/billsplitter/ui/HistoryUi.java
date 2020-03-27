@@ -12,17 +12,19 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class HistoryUi {
-    private final NewBillUi newBillUi = new NewBillUi();
     
     public Scene buildGui(Stage window) {
+        
         GridPane grid = buildGrid(window);
         VBox box = new VBox();
         Scene scene = new Scene(box);
         box.getChildren().add(grid);
+        
         return scene;
     }
 
     private GridPane buildGrid(Stage window) {
+        
         // Creating the GridPane
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
@@ -37,10 +39,9 @@ public class HistoryUi {
         
         row++;
         Button t2 = new Button("Tee uusi");
-        t2.setOnAction((ActionEvent event) -> window.setScene(this.newBillUi.buildGui(window)));
+        t2.setOnAction((ActionEvent event) -> window.setScene(new NewBillUi().buildGui(window)));
         grid.add(t2, col, row);
         
         return grid;
     }
-    
 }

@@ -2,35 +2,20 @@
 package billsplitter.domain;
 
 public class Bill {
-    private final int id;
-    private final int userId;
-    private final String creator;
     private final String title;
     private final String description;
     private final int payers;
     private final double amount;
     private final double result;
     
-    public Bill(User user, int id, String title, String description, int payers, double amount) {
-        this.id = id;
-        this.userId = user.getId();
-        this.creator = user.getName();               
+    public Bill(User user, String title, String description, int payers, double amount, double result) {              
         this.title = title;
         this.description = description;
         this.payers = payers;
         this.amount = amount;
-        this.result = amount / payers;
+        this.result = result;
     }
     
-    public int getId() {
-        return this.id;
-    }
-    public int getUserId() {
-        return this.userId;
-    }
-    public String getCreator() {
-        return this.creator;
-    }
     public String getTitle() {
         return this.title;
     }

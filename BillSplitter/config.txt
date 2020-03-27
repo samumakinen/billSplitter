@@ -1,0 +1,2 @@
+usersfilepath;./src/main/resources/data/users.txt
+billsfilepath;./src/main/resourvecs/data/bills.txt
