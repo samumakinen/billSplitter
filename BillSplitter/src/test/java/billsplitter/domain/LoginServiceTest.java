@@ -1,24 +1,26 @@
 
 package billsplitter.domain;
 
-import billsplitter.dao.FileUserDao;
-import java.util.List;
-import static org.junit.Assert.assertEquals;
+import billsplitter.dao.FakeFileUserDao;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
 public class LoginServiceTest {
-    FileUserDao fileUserDao;
     LoginService loginService;
     
     @Before
     public void setUp() {
-        this.fileUserDao = new FileUserDao();
-        this.loginService = new LoginService(this.fileUserDao);
+        this.loginService = new LoginService(new FakeFileUserDao());
     }
     
     @Test
-    public void logInWorks() {
-        
+    public void userExistsReturnsTrueWhenUserExists() {
+        assertTrue(this.loginService.userExists("villekalle"));
+    }
+    @Test
+    public void userExistsReturnsFalseWhenUserDoesNotExists() {
+        assertFalse(this.loginService.userExists("kettukarkki"));
     }
 }

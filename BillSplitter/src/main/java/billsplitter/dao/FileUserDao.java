@@ -8,17 +8,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-public class FileUserDao implements UserDao {
+public class FileUserDao {
     private final String usersFilePath;
     
     public FileUserDao() {
         this.usersFilePath = initConfig();
     }
     
-    @Override
     public void create(User user) {
         try {
             FileWriter writer = new FileWriter(usersFilePath, true);
@@ -31,7 +28,6 @@ public class FileUserDao implements UserDao {
         }
     }
 
-    @Override
     public List<User> getAll() {
         List<User> users = new ArrayList<>();
         try (Scanner reader = new Scanner(new File(usersFilePath))) {
@@ -46,8 +42,6 @@ public class FileUserDao implements UserDao {
         }
         return users;
     }
-
-
 
     private String initConfig() {
         String path = "./src/main/resources/data/users.txt";
