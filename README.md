@@ -1,9 +1,24 @@
 # Bill Splitter App
 This application helps users when purchasing something for a group of people. One person can pay at a store and then use Bill Splitter to calculate the amount each participant owes them. Users can also save bills to history to keep track of them.
 ## Command line actions
-To run the program on your computer download the project, navigate to the project folder "BillSplitter" and run:
+**All commans must be executed in the BillSplitter project folder!**
+### General
+Compile and run project:
 ```
 mvn compile exec:java -Dexec.mainClass=billsplitter.Main
+```
+Generate a runnable .jar file:
+```
+mvn package
+```
+### Tests
+Run tests:
+```
+mvn test
+```
+Generate and open jacoco test report:
+```
+mvn jacoco:report && open target/site/jacoco/index.html
 ```
 ## Documentation
 
