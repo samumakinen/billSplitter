@@ -1,6 +1,7 @@
 
 package billsplitter.ui;
 
+import billsplitter.domain.HistoryService;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -21,7 +22,13 @@ public class NewBillUi {
     private final TextArea billDescription = new TextArea("Optional...");
     private final TextField billPayers = new TextField();
     private final TextField billAmount = new TextField();
+    private final HistoryService historyService;
     private String amountPerPerson = "";
+    
+    public NewBillUi(HistoryService historyService) {
+        
+        this.historyService = historyService;
+    }
     
     public Scene buildGui(Stage window) {
         
@@ -100,7 +107,7 @@ public class NewBillUi {
 
         // Cancel
         Button cancel = new Button("Cancel");
-        cancel.setOnAction((ActionEvent event) -> window.setScene(new HistoryUi().buildGui(window)));
+        cancel.setOnAction((ActionEvent event) -> window.setScene(new HistoryUi(this.historyService).buildGui(window)));
         box.getChildren().add(cancel);
         int top = 0, right = 5, bottom = 0, left = 5;
         HBox.setMargin(cancel, new Insets(top, right, bottom, left));
@@ -123,6 +130,7 @@ public class NewBillUi {
     }
 
     private void clearText() {
+        
         this.billTitle.clear();
         this.billDescription.clear();
         this.billPayers.clear();

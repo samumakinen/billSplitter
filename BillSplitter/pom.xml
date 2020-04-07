@@ -41,6 +41,8 @@
                 <configuration>
                     <excludes>
                         <exclude>billsplitter/ui/**/*</exclude>
+                        <exclude>**/*Main.*</exclude>
+                        <exclude>**/*Launcher.*</exclude>
                     </excludes>
                 </configuration>
                 <executions>

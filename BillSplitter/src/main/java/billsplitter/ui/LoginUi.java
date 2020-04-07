@@ -1,12 +1,17 @@
 
+
 package billsplitter.ui;
 
+import billsplitter.domain.HistoryService;
 import billsplitter.domain.LoginService;
+import billsplitter.domain.User;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -16,19 +21,24 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class LoginUi {
-    private final TextField username;
+    
+    private final HistoryService historyService;
+    private final LoginService loginService;
     private final TextField newName;
     private final TextField newUsername;
-    private final LoginService loginService;
+    private final TextField username;
     
-    public LoginUi(LoginService loginService) {
-        this.username = new TextField();
+    public LoginUi(HistoryService historyService, LoginService loginService) {
+        
+        this.historyService = historyService;
+        this.loginService = loginService;
         this.newName = new TextField();
         this.newUsername = new TextField();
-        this.loginService = loginService;
+        this.username = new TextField();
+        
     }
     
-    public Scene buildGui(Stage window) throws Exception {
+    public Scene buildGui(Stage window) {
         
         GridPane grid = buildGrid(window);
         VBox box = new VBox();
@@ -86,27 +96,50 @@ public class LoginUi {
     }
 
     private Node buildLoginButton(Stage window) {
+        
         Button login = new Button("Login");
         login.setOnAction((ActionEvent event) -> {
-            if (this.loginService.userExists(this.username.getText())) {
-                window.setScene(new HistoryUi().buildGui(window));
+            String usernameText = this.username.getText();
+            User user = this.loginService.logIn(usernameText);
+            if (user instanceof User) {
+                this.historyService.setUser(user);
+                window.setScene(new HistoryUi(this.historyService).buildGui(window));
+            }
+            else {
+                this.username.clear();
+                Alert a = new Alert(AlertType.ERROR);
+                a.setTitle("ERROR");
+                a.setContentText("User " + usernameText + " does not exist! You can create a new one below.");
+                a.show();
             }
         });
+        
         return login;
     }
 
     private Node buildCreateButton(Stage window) {
+        
         Button create = new Button("Create");
         create.setOnAction((ActionEvent event) -> {
             String response = this.loginService.createUser(this.newName.getText(), this.newUsername.getText());
             String[] message = response.split(";");
             if ("ERROR".equals(message[0])) {
                 System.out.println(message[1]);
+                Alert a = new Alert(AlertType.ERROR);
+                a.setTitle("ERROR");
+                a.setContentText(message[1]);
+                a.show();
             } else {
                 System.out.println(message[1]);
-                window.setScene(new HistoryUi().buildGui(window));
+                Alert a = new Alert(AlertType.INFORMATION);
+                a.setTitle("SUCCESS");
+                a.setContentText(message[1]);
+                a.show();
+                this.newName.clear();
+                this.newUsername.clear();
             }
         });
+        
         return create;
     }
 }
