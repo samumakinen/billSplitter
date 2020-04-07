@@ -103,7 +103,7 @@ public class LoginUi {
             User user = this.loginService.logIn(usernameText);
             if (user instanceof User) {
                 this.historyService.setUser(user);
-                window.setScene(new HistoryUi(this.historyService).buildGui(window));
+                window.setScene(new HistoryUi(this.historyService, this.loginService).buildGui(window));
             }
             else {
                 this.username.clear();

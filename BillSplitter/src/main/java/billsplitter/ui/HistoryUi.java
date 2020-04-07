@@ -1,27 +1,31 @@
 
 package billsplitter.ui;
 
+import billsplitter.domain.Bill;
 import billsplitter.domain.HistoryService;
+import billsplitter.domain.LoginService;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class HistoryUi {
-    
     private final HistoryService historyService;
+    private final LoginService loginService;
     
-    public HistoryUi(HistoryService historyService) {
-        
+    public HistoryUi(HistoryService historyService, LoginService loginService) {
         this.historyService = historyService;
+        this.loginService = loginService;
     }
     
     public Scene buildGui(Stage window) {
@@ -46,13 +50,12 @@ public class HistoryUi {
         int top = 5, right = 20, bottom = 15, left = 20;
         grid.setPadding(new Insets(top, right, bottom, left));
         
-        Label t1 = new Label("Testi 1");
         int col = 0, row = 0, colSpan = 2, rowSpan = 1;
-        grid.add(t1, col, row);
+        grid.add(buildLogoutButton(window), col, row);
         
-        row++;
+        col++;
         Button t2 = new Button("Tee uusi");
-        t2.setOnAction((ActionEvent event) -> window.setScene(new NewBillUi(this.historyService).buildGui(window)));
+        t2.setOnAction((ActionEvent event) -> window.setScene(new NewBillUi(this.historyService, this.loginService).buildGui(window)));
         grid.add(t2, col, row);
         
         return grid;
@@ -62,10 +65,26 @@ public class HistoryUi {
         
         ListView<String> list = new ListView<>();
         ObservableList<String> items = FXCollections.observableArrayList();
-        this.historyService.getAll().stream().map(bill -> items.add(bill.getTitle()));
+        List<Bill> bills = this.historyService.getAll();
+        
+        for (Bill bill : bills) {
+            items.add(bill.getTitle());
+        }
+        
         list.setItems(items);
         
         return list;
+    }
+    
+        private Node buildLogoutButton(Stage window) {
+        
+        Button logout = new Button("Log out");
+        logout.setOnAction((ActionEvent event) -> {
+            this.historyService.setUser(null);
+            window.setScene(new LoginUi(this.historyService, this.loginService).buildGui(window));
+        });
+        
+        return logout;
     }
     
 }

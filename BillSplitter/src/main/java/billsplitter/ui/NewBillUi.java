@@ -1,7 +1,9 @@
 
 package billsplitter.ui;
 
+import billsplitter.domain.Bill;
 import billsplitter.domain.HistoryService;
+import billsplitter.domain.LoginService;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -23,11 +25,12 @@ public class NewBillUi {
     private final TextField billPayers = new TextField();
     private final TextField billAmount = new TextField();
     private final HistoryService historyService;
+    private final LoginService loginService;
     private String amountPerPerson = "";
     
-    public NewBillUi(HistoryService historyService) {
-        
+    public NewBillUi(HistoryService historyService, LoginService loginService) {
         this.historyService = historyService;
+        this.loginService = loginService;
     }
     
     public Scene buildGui(Stage window) {
@@ -107,7 +110,7 @@ public class NewBillUi {
 
         // Cancel
         Button cancel = new Button("Cancel");
-        cancel.setOnAction((ActionEvent event) -> window.setScene(new HistoryUi(this.historyService).buildGui(window)));
+        cancel.setOnAction((ActionEvent event) -> window.setScene(new HistoryUi(this.historyService, this.loginService).buildGui(window)));
         box.getChildren().add(cancel);
         int top = 0, right = 5, bottom = 0, left = 5;
         HBox.setMargin(cancel, new Insets(top, right, bottom, left));
@@ -121,7 +124,10 @@ public class NewBillUi {
 
         // Save
         Button save = new Button("Save");
-        save.setOnAction((ActionEvent event) -> saveBill());
+        save.setOnAction((ActionEvent event) -> {
+            saveBill();
+            window.setScene(new HistoryUi(this.historyService, this.loginService).buildGui(window));
+        });
         box.getChildren().add(save);
         top = 0; right = 5; bottom = 0; left = 0;
         HBox.setMargin(save, new Insets(top, right, bottom, left));
@@ -139,6 +145,14 @@ public class NewBillUi {
 
     private void saveBill() {
         
+        String username = this.historyService.getUser().getUsername();
+        String title = this.billTitle.getText();
+        String description = this.billDescription.getText();
+        int payers = Integer.valueOf(this.billPayers.getText());
+        double amount = Double.valueOf(this.billAmount.getText());
+        double result = amount / (1.0 * payers);
+        Bill bill = new Bill(username, title, description, payers, amount, result);
+        this.historyService.createBill(bill);
     }
 
     private void updateAmount() {
