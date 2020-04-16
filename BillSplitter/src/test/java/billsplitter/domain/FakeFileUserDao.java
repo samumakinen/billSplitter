@@ -1,6 +1,7 @@
 
-package billsplitter.dao;
+package billsplitter.domain;
 
+import billsplitter.dao.UserDao;
 import billsplitter.domain.User;
 import java.io.File;
 import java.io.FileWriter;

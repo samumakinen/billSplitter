@@ -1,7 +1,6 @@
 
 package billsplitter.domain;
 
-import billsplitter.dao.FakeFileUserDao;
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,7 +25,7 @@ public class LoginServiceTest {
     
     @Test
     public void createMethodBothFieldsEmpty() {
-        assertEquals("ERROR;Both fields must be filled!", this.loginService.createUser("", ""));
+        assertEquals("ERROR;Both name and username need to be at least 3 characters long!", this.loginService.createUser("", ""));
     }
     
     @Test
@@ -36,13 +35,12 @@ public class LoginServiceTest {
     
     @Test
     public void createMethodSpotsIllegalCharsInUsername() {
-        assertEquals("ERROR;; is not allowed in username!", this.loginService.createUser("Abb", "test;user"));
-        assertEquals("ERROR;emptySpace is not allowed in username!", this.loginService.createUser("Abb", "test user"));
+        assertEquals("ERROR;Name or username contains invalid characters!", this.loginService.createUser("Abb", "test;user"));
     }
     
     @Test
     public void createMethodSpotsIllegalCharsInName() {
-        assertEquals("ERROR;; is not allowed in name!", this.loginService.createUser("Ab;bb", "testest"));
+        assertEquals("ERROR;Name or username contains invalid characters!", this.loginService.createUser("Ab;bb", "testest"));
     }
     
     @Test

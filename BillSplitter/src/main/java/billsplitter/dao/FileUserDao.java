@@ -19,7 +19,9 @@ public final class FileUserDao implements UserDao {
         while (reader.hasNextLine()) {
             String line = reader.nextLine();
             String[] parts = line.split(";");
-            if (parts[0].equals("usersfilepath")) this.usersFilePath = parts[1];
+            if (parts[0].equals("usersfilepath")) {
+                this.usersFilePath = parts[1];
+            }
         }
         
     }

@@ -21,13 +21,13 @@ public class Launcher extends Application {
     }
     
     @Override
-   public void init() throws Exception {
-       this.fileBillDao = new FileBillDao();
-       this.fileUserDao = new FileUserDao(); 
-       this.historyService = new HistoryService(this.fileBillDao);
-       this.loginService = new LoginService(this.fileUserDao);
-       this.loginUi = new LoginUi(this.historyService, this.loginService);
-   }
+    public void init() throws Exception {
+        this.fileBillDao = new FileBillDao();
+        this.fileUserDao = new FileUserDao(); 
+        this.historyService = new HistoryService(this.fileBillDao);
+        this.loginService = new LoginService(this.fileUserDao);
+        this.loginUi = new LoginUi(this.historyService, this.loginService);
+    }
     
     @Override
     public void start(Stage window) {
@@ -38,7 +38,7 @@ public class Launcher extends Application {
     
     @Override
     public void stop() {
-      System.out.println("sovellus sulkeutuu");
+        System.out.println("sovellus sulkeutuu");
     }
     
 }

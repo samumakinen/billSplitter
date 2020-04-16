@@ -14,36 +14,56 @@ public class LoginService {
         try {
             return this.fileUserDao.getAll().stream().filter(user -> username.equals(user.getUsername())).findFirst().get();
         } catch (Exception ex) {
-            System.out.println("Error @ LoginService.login(" + username + ").this.fileUserDao.getAll() -> " + ex.getMessage());
+            System.out.println("Error @ LoginService.login().this.fileUserDao.getAll() -> " + ex.getMessage());
         }
         return null;
     }
     
     public String createUser(String name, String username) {
         
-        if (name.isEmpty() || username.isEmpty()) return "ERROR;Both fields must be filled!";
-        
-        if (username.length() < 3|| name.length() < 3) return "ERROR;Both name and username need to be at least 3 characters long!";
-        
-        CharSequence[] illegalChars = { ";", ":", ",", " "};
-        for (CharSequence c : illegalChars) {
-            if (username.contains(c) && c.equals(" ")) return "ERROR;emptySpace is not allowed in username!";
-            if (username.contains(c)) return "ERROR;" + c + " is not allowed in username!";
+        if (userDetailsTooShort(name, username)) {
+            return "ERROR;Both name and username need to be at least 3 characters long!";
         }
-        if (name.contains(";")) return "ERROR;; is not allowed in name!";
         
-        try {
-            if (this.fileUserDao.getAll().stream().anyMatch(u -> u.getUsername().equals(username))) return "ERROR;Username already in use!";
-        } catch (Exception ex) {
-            System.out.println("Error @ LoginService.createUser(" + name + ", " + username + ").this.fileUserDao.getAll() -> " + ex.getMessage());
+        if (userDetailsHaveIllegalCharacter(name, username)) {
+            return "ERROR;Name or username contains invalid characters!";
+        }
+        
+        if (usernameExists(username)) {
+            return "ERROR;Username already in use!";
         }
         
         try {
             this.fileUserDao.create(new User(name, username));
         } catch (Exception ex) {
-            System.out.println("Error @ LoginService.createUser(" + name + ", " + username + ").this.fileUserDao.create() -> " + ex.getMessage());
+            System.out.println("Error @ LoginService.createUser().this.fileUserDao.create() -> " + ex.getMessage());
         }
-        return "SUCCESS;User " + name +" has been created with username " + username;
+        return "SUCCESS;User " + name + " has been created with username " + username;
+    }
+    
+    private boolean userDetailsTooShort(String name, String username) {
+        return name.length() < 3 || username.length() < 3;
+    }
+    
+    private boolean userDetailsHaveIllegalCharacter(String name, String username) {
+        CharSequence[] illegalChars = { ";", ":", ","};
+        for (CharSequence c : illegalChars) {
+            if (username.contains(c) || name.contains(c)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    private boolean usernameExists(String username) {
+        try {
+            if (this.fileUserDao.getAll().stream().anyMatch(u -> u.getUsername().equals(username))) {
+                return true;
+            }
+        } catch (Exception ex) {
+            System.out.println("Error @ LoginService.createUser().this.fileUserDao.getAll() -> " + ex.getMessage());
+        }
+        return false;
     }
 
 }

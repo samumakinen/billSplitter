@@ -96,8 +96,8 @@ public class NewBillUi {
         
         // Buttons at the bottom
         HBox hbox = buildButtons(window);
-	row += rowSpan;
-	grid.add(hbox, col, row);
+        row += rowSpan;
+        grid.add(hbox, col, row);
         
         return grid;
     }
@@ -119,7 +119,10 @@ public class NewBillUi {
         Button clear = new Button("Clear");
         clear.setOnAction((ActionEvent event) -> clearText());
         box.getChildren().add(clear);
-        top = 0; right = 5; bottom = 0; left = 0;
+        top = 0;
+        right = 5;
+        bottom = 0;
+        left = 0;
         HBox.setMargin(clear, new Insets(top, right, bottom, left));
 
         // Save
@@ -129,7 +132,10 @@ public class NewBillUi {
             window.setScene(new HistoryUi(this.historyService, this.loginService).buildGui(window));
         });
         box.getChildren().add(save);
-        top = 0; right = 5; bottom = 0; left = 0;
+        top = 0;
+        right = 5;
+        bottom = 0;
+        left = 0;
         HBox.setMargin(save, new Insets(top, right, bottom, left));
 
         return box;
@@ -158,11 +164,11 @@ public class NewBillUi {
     private void updateAmount() {
         
         if (!this.billPayers.getText().isEmpty() && !this.billAmount.getText().isEmpty()) {
-        int payers = Integer.parseInt(this.billPayers.getText());
-        double amount = Double.parseDouble(this.billAmount.getText());
-        double result = amount / payers;
-        this.amountPerPerson = "Amount per person: " + String.valueOf(result);
-        System.out.println("result " + result);
+            int payers = Integer.parseInt(this.billPayers.getText());
+            double amount = Double.parseDouble(this.billAmount.getText());
+            double result = amount / payers;
+            this.amountPerPerson = "Amount per person: " + String.valueOf(result);
+            System.out.println("result " + result);
         } else {
             System.out.println("Molemmissa kentissä pitää olla jotain!");
         }

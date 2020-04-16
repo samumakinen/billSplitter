@@ -104,8 +104,7 @@ public class LoginUi {
             if (user instanceof User) {
                 this.historyService.setUser(user);
                 window.setScene(new HistoryUi(this.historyService, this.loginService).buildGui(window));
-            }
-            else {
+            } else {
                 this.username.clear();
                 Alert a = new Alert(AlertType.ERROR);
                 a.setTitle("ERROR");
@@ -125,16 +124,10 @@ public class LoginUi {
             String[] message = response.split(";");
             if ("ERROR".equals(message[0])) {
                 System.out.println(message[1]);
-                Alert a = new Alert(AlertType.ERROR);
-                a.setTitle("ERROR");
-                a.setContentText(message[1]);
-                a.show();
+                createAlert(AlertType.ERROR, "ERROR", message[1]).show();
             } else {
                 System.out.println(message[1]);
-                Alert a = new Alert(AlertType.INFORMATION);
-                a.setTitle("SUCCESS");
-                a.setContentText(message[1]);
-                a.show();
+                createAlert(AlertType.INFORMATION, "SUCCESS", message[1]).show();
                 this.newName.clear();
                 this.newUsername.clear();
             }
@@ -142,4 +135,12 @@ public class LoginUi {
         
         return create;
     }
+    
+    private Alert createAlert(AlertType alertType, String title, String message) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setContentText(message);
+        return alert;
+    }
+    
 }

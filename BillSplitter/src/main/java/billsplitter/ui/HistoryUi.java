@@ -4,7 +4,6 @@ package billsplitter.ui;
 import billsplitter.domain.Bill;
 import billsplitter.domain.HistoryService;
 import billsplitter.domain.LoginService;
-import java.util.ArrayList;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -67,16 +66,16 @@ public class HistoryUi {
         ObservableList<String> items = FXCollections.observableArrayList();
         List<Bill> bills = this.historyService.getAll();
         
-        for (Bill bill : bills) {
+        bills.forEach((bill) -> {
             items.add(bill.getTitle());
-        }
+        });
         
         list.setItems(items);
         
         return list;
     }
     
-        private Node buildLogoutButton(Stage window) {
+    private Node buildLogoutButton(Stage window) {
         
         Button logout = new Button("Log out");
         logout.setOnAction((ActionEvent event) -> {

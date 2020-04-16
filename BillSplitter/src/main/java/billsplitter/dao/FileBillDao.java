@@ -19,7 +19,9 @@ public final class FileBillDao implements BillDao {
         while (reader.hasNextLine()) {
             String line = reader.nextLine();
             String[] parts = line.split(";");
-            if (parts[0].equals("billsfilepath")) this.billsFilePath = parts[1];
+            if (parts[0].equals("billsfilepath")) {
+                this.billsFilePath = parts[1];
+            }
         }
     }
     
