@@ -35,4 +35,4 @@ mvn jacoco:report && open target/site/jacoco/index.html
 Generate and open checkstyle test report:
 ```
 mvn jxr:jxr checkstyle:checkstyle && open target/site/checkstyle.html
-
+```
