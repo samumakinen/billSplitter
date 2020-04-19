@@ -6,7 +6,7 @@ Currently there are no plans to have different levels of user privileges since t
 ## UI-draft
 BSA has been designed in a compact vertical layout so that it does not take up much space on the screen. BSA has three different interractive views for basic funcionality, as seen from the picture below. When the user clicks a bill from the **history view** it opens up as a html file to a new window.
 
-<img src="https://github.com/samumakinen/ot-harjoitustyo/blob/master/documentation/resources/uidraft1.1.png">
+<img src=resources/uidraft.png>
 
 ## Basic functionality
 ### Login screen (before login)
