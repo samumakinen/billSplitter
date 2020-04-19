@@ -10,30 +10,31 @@ BSA has been designed in a compact vertical layout so that it does not take up m
 
 ## Basic functionality
 ### Login screen (before login)
-- User can login with their username by typing it into the field **DONE**
+- **DONE** User can login with their username by typing it into the field
   - If username exists the user is transferred to their **history view**
   - If username does not exist the user is notified to check spelling or create a new user
-- User can create a new user by typing their name and a made up username into the correct fields **DONE**
+- **DONE** User can create a new user by typing their name and a made up username into the correct fields
   - The length of the username must be atleast 3 characters
 ### History view (after login)
-- User can browse bills by their titles **DONE**
-- Click bill to enter single **bill view**
-- User can enter the **new bill screen** to create a new bill **DONE**
-- User can log out of the app (goes back to the **login screen**) **DONE**
+- **DONE** User can browse bills by their titles
+- Clicking a bill enters single **bill view**
+- **DONE** User can enter the **new bill screen** to create a new bill
+- **DONE** User can log out of the app (goes back to the **login screen**)
 - User can remove bills
 - User can see the total number of bills in the history
 ### New bill screen
-- User can create a new bill **DONE**
+- **DONE** User can create a new bill
   - A bill must have a  *unique* title of at least 3 characters
   - Describtion is optional
   - Number of payers must be a number that is at least 1
   - Amount of the bill must be a number, separated by a . (0.5, 2.0 or 15.5 for example)
   - Bottom of the screen shows the share of each payer
-- User can save the bill to the history (goes back to the **history view**) **DONE**
-- User can cancel the creation (goes back to the **history view**) **DONE**
+- **DONE** User can save the bill to the history (goes back to the **history view**)
+- **DONE** User can cancel the creation (goes back to the **history view**)
 ### A single bill view
 - Bill opens as a html file, no editing possible
 ## Future development ideas
+- **DONE** SQLite database to enable advanced functionality
 - Ability to modify bills after creating them
 - Ability to add specific persons to each bill and keep track of who has payed off their share
 - Sort by Title, amount, etc.
