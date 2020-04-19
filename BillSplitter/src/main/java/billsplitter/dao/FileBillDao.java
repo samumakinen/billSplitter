@@ -2,60 +2,53 @@
 package billsplitter.dao;
 
 import billsplitter.domain.Bill;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
-import java.util.stream.Collectors;
+import java.util.Properties;
 
 public final class FileBillDao implements BillDao {
-    String billsFilePath;
+    private final Connection db;
     
     public FileBillDao() throws Exception {
-        this.billsFilePath = "./src/main/resources/data/users.txt";
+        InputStream input = FileBillDao.class.getClassLoader().getResourceAsStream("settings/config.properties"); 
         
-        InputStream inputStream = getClass().getResourceAsStream("/config.txt");
-        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-        String contents = reader.lines().collect(Collectors.joining(System.lineSeparator()));
-        System.out.println(contents);
-        
-            
-//            Scanner reader = new Scanner(new File("./main/resources/config.txt"));
-//            while (reader.hasNextLine()) {
-//                String line = reader.nextLine();
-//                String[] parts = line.split(";");
-//                if (parts[0].equals("billsfilepath")) {
-//                    this.billsFilePath = parts[1];
-//                }
-//        }
-            
+        if (input == null) {
+            this.db = DriverManager.getConnection("jdbc:sqlite:billsplitter.db");
+        } else {
+            Properties properties = new Properties();
+            properties.load(input);
+            this.db = DriverManager.getConnection(properties.getProperty("db.url"));
+        }
+        Statement s = db.createStatement();
+        s.execute("CREATE TABLE IF NOT EXISTS Bills (id INTEGER PRIMARY KEY, username String, title TEXT, description TEXT, payers INTEGER, amount DOUBLE)");
     }
     
     @Override
     public void create(Bill bill) throws Exception {
-        
-        try (FileWriter writer = new FileWriter(billsFilePath, true)) {
-            writer.write(bill.getUsername() + ";" + bill.getTitle() + ";" + bill.getDescription() + ";" + bill.getPayers() + ";" + bill.getAmount() + ";" + bill.getResult());
-            writer.write(System.lineSeparator());
-        }
+        PreparedStatement p = this.db.prepareStatement("INSERT INTO Bills (username,title,description,payers,amount) VALUES (?,?,?,?,?)");
+        p.setString(1, bill.getUsername());
+        p.setString(2, bill.getTitle());
+        p.setString(3, bill.getDescription());
+        p.setInt(4, bill.getPayers());
+        p.setDouble(5, bill.getAmount());
+        p.execute();
     }
 
     @Override
     public List<Bill> getAll() throws Exception {
         List<Bill> bills = new ArrayList<>();
+        Statement s = db.createStatement();
         
-        Scanner reader = new Scanner(new File(billsFilePath));
-            
-        while (reader.hasNextLine()) {
-            String line = reader.nextLine();
-            String[] parts = line.split(";");
-            bills.add(new Bill(parts[0], parts[1], parts[2], Integer.valueOf(parts[3]), Double.valueOf(parts[4]), Double.valueOf(parts[5])));
+        ResultSet r = s.executeQuery("SELECT * FROM Bills");
+        while (r.next()) {
+            bills.add(new Bill(r.getString("username"), r.getString("title"), r.getString("description"), r.getInt("payers"), r.getDouble("amount")));
         }
-
         return bills;
     }
 

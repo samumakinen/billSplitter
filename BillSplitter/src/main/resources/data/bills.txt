@@ -1,8 +1,0 @@
-samumaki;Testi1;description;4;10.0;2.5
-samumaki;Testi2;description;8;20.0;2.5
-testit;Testi3;description;4;10.0;2.5
-testit;Testi4;description;8;20.0;2.5
-samumaki;Testi3;ASDASDA;2;5.0;2.5
-samumaki;Testi4;Optional...;5;2.5;0.5
-samumaki;Testi5;Optional...;2;2.0;1.0
-maijan;Ruokea britney;olearys ;4;35.0;8.75

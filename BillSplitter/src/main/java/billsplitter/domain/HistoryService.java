@@ -4,6 +4,8 @@ package billsplitter.domain;
 import billsplitter.dao.BillDao;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 public class HistoryService {
@@ -26,19 +28,20 @@ public class HistoryService {
         try {
             this.fileBillDao.create(bill);
         } catch (Exception ex) {
-            System.out.println("ERROR @ HistoryService.getAll.this.fileBillDao.create(Bill) -> " + ex.getMessage());
+            Logger.getLogger(HistoryService.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
     public List<Bill> getAll() {
-        List<Bill> list = new ArrayList<>();
+        List<Bill> bills = new ArrayList<>();
+        
         try {
-            list = this.fileBillDao.getAll().stream().filter(bill -> bill.getUsername().equals(this.user.getUsername())).collect(Collectors.toList());
+            bills = this.fileBillDao.getAll().stream().filter(bill -> bill.getUsername().equals(this.user.getUsername())).collect(Collectors.toList());
         } catch (Exception ex) {
-            System.out.println("ERROR @ HistoryService.getAll.this.fileBillDao.getAll()");
+            Logger.getLogger(HistoryService.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        return list;
+        return bills;
     }
     
 }

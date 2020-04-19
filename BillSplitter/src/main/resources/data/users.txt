@@ -1,5 +1,0 @@
-samumaki;Samu Mäkinen
-testit;Samu
-maijan;Maija Niskanen
-asdasda;sadadsa
-samu;samu

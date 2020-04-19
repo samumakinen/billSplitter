@@ -2,6 +2,7 @@
 package billsplitter.domain;
 
 import billsplitter.dao.UserDao;
+import java.util.List;
 
 public class LoginService {
     private final UserDao fileUserDao;
@@ -12,9 +13,10 @@ public class LoginService {
     
     public User logIn(String username) {
         try {
-            return this.fileUserDao.getAll().stream().filter(user -> username.equals(user.getUsername())).findFirst().get();
-        } catch (Exception ex) {
-            System.out.println("Error @ LoginService.login().this.fileUserDao.getAll() -> " + ex.getMessage());
+            List<User> users = this.fileUserDao.getAll();
+            return users.isEmpty() ? null : users.stream().filter(user -> username.equals(user.getUsername())).findFirst().get();
+        } catch (Exception e) {
+            System.out.println("LoginService.logIn() " + e);
         }
         return null;
     }
@@ -35,8 +37,8 @@ public class LoginService {
         
         try {
             this.fileUserDao.create(new User(name, username));
-        } catch (Exception ex) {
-            System.out.println("Error @ LoginService.createUser().this.fileUserDao.create() -> " + ex.getMessage());
+        } catch (Exception e) {
+            System.out.println("LoginService.createUser() " + e);
         }
         return "SUCCESS;User " + name + " has been created with username " + username;
     }
@@ -60,8 +62,8 @@ public class LoginService {
             if (this.fileUserDao.getAll().stream().anyMatch(u -> u.getUsername().equals(username))) {
                 return true;
             }
-        } catch (Exception ex) {
-            System.out.println("Error @ LoginService.createUser().this.fileUserDao.getAll() -> " + ex.getMessage());
+        } catch (Exception e) {
+            System.out.println("LoginService.usernameExists() " + e);
         }
         return false;
     }

@@ -2,47 +2,49 @@
 package billsplitter.dao;
 
 import billsplitter.domain.User;
-import java.io.File;
-import java.io.FileWriter;
+import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
+import java.util.Properties;
 
 public final class FileUserDao implements UserDao {
-    String usersFilePath;
+    private final Connection db;
     
     public FileUserDao() throws Exception {
-        this.usersFilePath = "./src/main/resources/data/users.txt";
+        InputStream input = FileBillDao.class.getClassLoader().getResourceAsStream("settings/config.properties"); 
         
-        Scanner reader = new Scanner(new File("./src/main/resources/config.txt"));
-            
-        while (reader.hasNextLine()) {
-            String line = reader.nextLine();
-            String[] parts = line.split(";");
-            if (parts[0].equals("usersfilepath")) {
-                this.usersFilePath = parts[1];
-            }
+        if (input == null) {
+            this.db = DriverManager.getConnection("jdbc:sqlite:billsplitter.db");
+        } else {
+            Properties properties = new Properties();
+            properties.load(input);
+            this.db = DriverManager.getConnection(properties.getProperty("db.url"));
         }
-        
+        Statement s = db.createStatement();
+        s.execute("CREATE TABLE IF NOT EXISTS Users (username TEXT PRIMARY KEY, name TEXT)");
     }
 
     @Override
     public void create(User user) throws Exception {
-        try (FileWriter writer = new FileWriter(usersFilePath, true)) {
-            writer.write(user.getUsername() + ";" + user.getName());
-            writer.write(System.lineSeparator());
-        }
+        PreparedStatement p = this.db.prepareStatement("INSERT INTO Users (username,name) VALUES (?,?)");
+        p.setString(1,user.getUsername());
+        p.setString(2,user.getName());
+        p.execute();
     }
 
     @Override
     public List<User> getAll() throws Exception {
         List<User> users = new ArrayList<>();
-        Scanner reader = new Scanner(new File(usersFilePath));
+        Statement s = db.createStatement();
         
-        while (reader.hasNextLine()) {
-            String line = reader.nextLine();
-            String[] parts = line.split(";");
-            users.add(new User(parts[1], parts[0]));
+        ResultSet r = s.executeQuery("SELECT * FROM Users");
+        while (r.next()) {
+            users.add(new User(r.getString("name"), r.getString("username")));
         }
         return users;
     }

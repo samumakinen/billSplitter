@@ -156,8 +156,7 @@ public class NewBillUi {
         String description = this.billDescription.getText();
         int payers = Integer.valueOf(this.billPayers.getText());
         double amount = Double.valueOf(this.billAmount.getText());
-        double result = amount / (1.0 * payers);
-        Bill bill = new Bill(username, title, description, payers, amount, result);
+        Bill bill = new Bill(username, title, description, payers, amount);
         this.historyService.createBill(bill);
     }
 
