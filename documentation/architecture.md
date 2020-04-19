@@ -17,8 +17,8 @@ The application follows a three level arcitechture: Ui (user interface), domain 
   - _User_ 
   - _Bill_ 
 - **billsplitter.dao**
-  - _FileUserDao_ extends _UserDao_
-  - _FileBillDao_ extends _BillDao_
+  - _FileUserDao_ (extends _UserDao_)
+  - _FileBillDao_ (extends _BillDao_)
   - _UserDao_ (interface)
   - _BillDao_ (Interface)
 
