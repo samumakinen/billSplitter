@@ -8,12 +8,16 @@ The application follows a three level arcitechture: Ui (user interface), domain 
 
 ### User interface
 
+**TBA**
+
 - **billsplitter.ui**
   - _LoginUi_ calls _LoginService_ and sets _HistoryUi_ to window
   - _HistoryUi_ calls _HistoryService_ and sets _NewBillUi_ or _LoginUi_ to window
   - _NewBillUi_ calls _HistoryService_ and sets _HistoryUi_ to window
 
 ### Application logic
+
+**TBA**
 
 - **billsplitter.domain**
   - _LoginService_ calls _FileUserDao_
