@@ -26,15 +26,12 @@ public class LoginService {
         if (userDetailsTooShort(name, username)) {
             return "ERROR;Both name and username need to be at least 3 characters long!";
         }
-        
         if (userDetailsHaveIllegalCharacter(name, username)) {
             return "ERROR;Name or username contains invalid characters!";
         }
-        
         if (usernameExists(username)) {
             return "ERROR;Username already in use!";
         }
-        
         try {
             this.fileUserDao.create(new User(name, username));
         } catch (Exception e) {

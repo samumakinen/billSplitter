@@ -21,7 +21,7 @@ import javafx.stage.Stage;
 public class NewBillUi {
     
     private final TextField billTitle = new TextField();
-    private final TextArea billDescription = new TextArea("Optional...");
+    private final TextArea billDescription = new TextArea();
     private final TextField billPayers = new TextField();
     private final TextField billAmount = new TextField();
     private final HistoryService historyService;

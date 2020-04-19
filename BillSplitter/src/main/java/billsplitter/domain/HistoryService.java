@@ -40,7 +40,6 @@ public class HistoryService {
         } catch (Exception ex) {
             Logger.getLogger(HistoryService.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
         return bills;
     }
     
