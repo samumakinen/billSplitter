@@ -14,7 +14,7 @@ public final class FileUserDao implements UserDao {
     public FileUserDao() throws Exception {
         this.usersFilePath = "./src/main/resources/data/users.txt";
         
-        Scanner reader = new Scanner(new File("config.txt"));
+        Scanner reader = new Scanner(new File("./src/main/resources/config.txt"));
             
         while (reader.hasNextLine()) {
             String line = reader.nextLine();

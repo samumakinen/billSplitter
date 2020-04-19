@@ -2,11 +2,15 @@
 package billsplitter.dao;
 
 import billsplitter.domain.Bill;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public final class FileBillDao implements BillDao {
     String billsFilePath;
@@ -14,15 +18,21 @@ public final class FileBillDao implements BillDao {
     public FileBillDao() throws Exception {
         this.billsFilePath = "./src/main/resources/data/users.txt";
         
-        Scanner reader = new Scanner(new File("config.txt"));
+        InputStream inputStream = getClass().getResourceAsStream("/config.txt");
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+        String contents = reader.lines().collect(Collectors.joining(System.lineSeparator()));
+        System.out.println(contents);
+        
             
-        while (reader.hasNextLine()) {
-            String line = reader.nextLine();
-            String[] parts = line.split(";");
-            if (parts[0].equals("billsfilepath")) {
-                this.billsFilePath = parts[1];
-            }
-        }
+//            Scanner reader = new Scanner(new File("./main/resources/config.txt"));
+//            while (reader.hasNextLine()) {
+//                String line = reader.nextLine();
+//                String[] parts = line.split(";");
+//                if (parts[0].equals("billsfilepath")) {
+//                    this.billsFilePath = parts[1];
+//                }
+//        }
+            
     }
     
     @Override
