@@ -14,7 +14,7 @@ This application helps users when purchasing something for a group of people. On
 
 ## Releases
 
-[1.0 (week 5)] (https://github.com/samumakinen/ot-harjoitustyo/releases/tag/1.0)
+[1.0 (week 5)](https://github.com/samumakinen/ot-harjoitustyo/releases/tag/1.0)
 
 ## Command line actions
 **All commans must be executed in the BillSplitter project folder!**
