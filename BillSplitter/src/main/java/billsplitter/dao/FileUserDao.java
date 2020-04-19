@@ -32,8 +32,8 @@ public final class FileUserDao implements UserDao {
     @Override
     public void create(User user) throws Exception {
         PreparedStatement p = this.db.prepareStatement("INSERT INTO Users (username,name) VALUES (?,?)");
-        p.setString(1,user.getUsername());
-        p.setString(2,user.getName());
+        p.setString(1, user.getUsername());
+        p.setString(2, user.getName());
         p.execute();
     }
 
