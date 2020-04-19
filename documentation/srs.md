@@ -17,9 +17,9 @@ BSA has been designed in a compact vertical layout so that it does not take up m
   - The length of the username must be atleast 3 characters
 ### History view (after login)
 - **DONE** User can browse bills by their titles
-- Clicking a bill enters single **bill view**
 - **DONE** User can enter the **new bill screen** to create a new bill
 - **DONE** User can log out of the app (goes back to the **login screen**)
+- Clicking a bill enters single **bill view**
 - User can remove bills
 - User can see the total number of bills in the history
 ### New bill screen
