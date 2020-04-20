@@ -1,7 +1,6 @@
 
 package billsplitter.ui;
 
-import billsplitter.domain.Bill;
 import billsplitter.domain.HistoryService;
 import billsplitter.domain.LoginService;
 import javafx.event.ActionEvent;
@@ -152,13 +151,11 @@ public class NewBillUi implements Ui {
 
     private void saveBill() {
         
-        String username = this.historyService.getUser().getUsername();
         String title = this.billTitle.getText();
         String description = this.billDescription.getText();
         int payers = Integer.valueOf(this.billPayers.getText());
         double amount = Double.valueOf(this.billAmount.getText());
-        Bill bill = new Bill(username, title, description, payers, amount);
-        this.historyService.createBill(bill);
+        this.historyService.createBill(title, description, payers, amount);
     }
 
     private void updateAmount() {

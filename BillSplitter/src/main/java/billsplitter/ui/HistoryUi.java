@@ -55,7 +55,7 @@ public class HistoryUi implements Ui {
         grid.add(getLogoutButton(window), col, row);
         
         col++;
-        Button t2 = new Button("Tee uusi");
+        Button t2 = new Button("New bill");
         t2.setOnAction((ActionEvent event) -> window.setScene(new NewBillUi(this.historyService, this.loginService).getScene(window)));
         grid.add(t2, col, row);
         

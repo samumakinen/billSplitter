@@ -2,6 +2,7 @@
 package billsplitter.domain;
 
 public class Bill {
+    private int id;
     private final String username;
     private final String title;
     private final String description;
@@ -16,6 +17,18 @@ public class Bill {
         this.amount = amount;
     }
     
+    public Bill(int id, String username, String title, String description, int payers, double amount) {   
+        this.id = id;
+        this.username = username;
+        this.title = title;
+        this.description = description;
+        this.payers = payers;
+        this.amount = amount;
+    }
+    
+    public int getId() {
+        return this.id;
+    }
     public String getUsername() {
         return this.username;
     }

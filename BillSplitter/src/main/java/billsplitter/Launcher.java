@@ -1,6 +1,7 @@
 
 package billsplitter;
 
+import billsplitter.dao.ConnectionHelper;
 import billsplitter.dao.FileBillDao;
 import billsplitter.dao.FileUserDao;
 import billsplitter.domain.HistoryService;
@@ -10,6 +11,7 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 
 public class Launcher extends Application {
+    private ConnectionHelper connectionHelper;
     private FileBillDao fileBillDao;
     private FileUserDao fileUserDao;
     private HistoryService historyService;
@@ -22,6 +24,7 @@ public class Launcher extends Application {
     
     @Override
     public void init() throws Exception {
+        this.connectionHelper = new ConnectionHelper();
         this.fileBillDao = new FileBillDao();
         this.fileUserDao = new FileUserDao(); 
         this.historyService = new HistoryService(this.fileBillDao);
