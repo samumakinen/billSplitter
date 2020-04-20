@@ -1,11 +1,8 @@
 
-package billsplitter.domain;
+package billsplitter.dao;
 
-import billsplitter.dao.UserDao;
 import billsplitter.domain.User;
 import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;

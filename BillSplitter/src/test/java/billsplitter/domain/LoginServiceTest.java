@@ -1,6 +1,7 @@
 
 package billsplitter.domain;
 
+import billsplitter.dao.FakeFileUserDao;
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;

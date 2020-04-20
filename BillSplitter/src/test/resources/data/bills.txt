@@ -1,2 +1,0 @@
-username;title;description;payers;amount;sumPerPayer
-testaaja;Testilasku;Tämä lasku testaa ohjelman toiminnallisuutta;4;10.0;2.5
