@@ -8,5 +8,5 @@ Day | Time | What was done
 08.03 | 1h | Finishing tasks from yesterday
 09.03 | 0h | Updating architecture.md
 16.03 | 2h | Added chekstyle, remove double declaration of plugin from pom and cleaning
-19.03 | 8h | Moved from text files to SQLite database and .properties file. Fixing issues related to that.
-20.04 | 1h | fixing documentation and adding more precise architecture / structure description.
+19.03 | 8h | Moved from text files to SQLite database and .properties file. Fixing issues related to that
+20.04 | 3h | Documentation, fixing dao methods to get rid of errors
