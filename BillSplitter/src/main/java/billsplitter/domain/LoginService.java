@@ -2,7 +2,6 @@
 package billsplitter.domain;
 
 import billsplitter.dao.UserDao;
-import java.util.List;
 
 public class LoginService {
     private final UserDao fileUserDao;
@@ -13,10 +12,9 @@ public class LoginService {
     
     public User logIn(String username) {
         try {
-            List<User> users = this.fileUserDao.getAll();
-            return users.isEmpty() ? null : users.stream().filter(user -> username.equals(user.getUsername())).findFirst().get();
+            return this.fileUserDao.getUser(username);
         } catch (Exception e) {
-            System.out.println("LoginService.logIn() " + e);
+            System.out.println(e);
         }
         return null;
     }
@@ -35,7 +33,7 @@ public class LoginService {
         try {
             this.fileUserDao.create(new User(name, username));
         } catch (Exception e) {
-            System.out.println("LoginService.createUser() " + e);
+            System.out.println(e);
         }
         return "SUCCESS;User " + name + " has been created with username " + username;
     }
@@ -60,7 +58,7 @@ public class LoginService {
                 return true;
             }
         } catch (Exception e) {
-            System.out.println("LoginService.usernameExists() " + e);
+            System.out.println(e);
         }
         return false;
     }

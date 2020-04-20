@@ -10,13 +10,13 @@ public class LoginServiceTest {
     LoginService loginService;
     
     @Before
-    public void setup() {
+    public void setup() throws Exception {
         this.loginService = new LoginService(new FakeFileUserDao());
     }
     
     @Test
     public void loginMethodReturnsCorrectlyWhenUserExists() {
-        assertEquals(new User("Testi Testinen", "testaaja"), this.loginService.logIn("testaaja"));
+        assertEquals(new User("Test Tester", "tester"), this.loginService.logIn("tester"));
     }
     
     @Test
@@ -46,12 +46,12 @@ public class LoginServiceTest {
     
     @Test
     public void createMethodSpotsUsernameInUse() {
-        assertEquals("ERROR;Username already in use!", this.loginService.createUser("Test Tester", "testaaja"));
+        assertEquals("ERROR;Username already in use!", this.loginService.createUser("Test Tester", "tester"));
     }
     
     @Test
     public void createMethodCreatesNewUser() {
-        assertEquals("SUCCESS;User Test User has been created with username tester", this.loginService.createUser("Test User", "tester"));
+        assertEquals("SUCCESS;User Test User has been created with username testuser", this.loginService.createUser("Test User", "testuser"));
     }
     
 }

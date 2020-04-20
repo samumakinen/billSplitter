@@ -48,4 +48,13 @@ public final class FileUserDao implements UserDao {
         }
         return users;
     }
+    
+    @Override
+    public User getUser(String username) throws Exception {
+        PreparedStatement p = this.db.prepareStatement("SELECT name FROM Users WHERE username = ?");
+        p.setString(1, username);
+        ResultSet r = p.executeQuery();
+        return new User(r.getString("name"), username);
+    }
+    
 }
