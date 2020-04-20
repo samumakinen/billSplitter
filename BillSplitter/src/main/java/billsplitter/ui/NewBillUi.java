@@ -18,7 +18,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class NewBillUi {
+public class NewBillUi implements Ui {
     
     private final TextField billTitle = new TextField();
     private final TextArea billDescription = new TextArea();
@@ -33,9 +33,10 @@ public class NewBillUi {
         this.loginService = loginService;
     }
     
-    public Scene buildGui(Stage window) {
+    @Override
+    public Scene getScene(Stage window) {
         
-        GridPane grid = buildGrid(window);
+        GridPane grid = getGrid(window);
         VBox box = new VBox();
         Scene scene = new Scene(box);
         box.getChildren().add(grid);
@@ -43,7 +44,7 @@ public class NewBillUi {
         return scene;
     }
     
-    private GridPane buildGrid(Stage window) {
+    private GridPane getGrid(Stage window) {
         
         // Creating the GridPane
         GridPane grid = new GridPane();
@@ -95,14 +96,14 @@ public class NewBillUi {
         grid.add(btn, col, row);
         
         // Buttons at the bottom
-        HBox hbox = buildButtons(window);
+        HBox hbox = getButtons(window);
         row += rowSpan;
         grid.add(hbox, col, row);
         
         return grid;
     }
     
-    private HBox buildButtons(Stage window) {
+    private HBox getButtons(Stage window) {
         
         // Create HBox
         HBox box = new HBox();
@@ -110,7 +111,7 @@ public class NewBillUi {
 
         // Cancel
         Button cancel = new Button("Cancel");
-        cancel.setOnAction((ActionEvent event) -> window.setScene(new HistoryUi(this.historyService, this.loginService).buildGui(window)));
+        cancel.setOnAction((ActionEvent event) -> window.setScene(new HistoryUi(this.historyService, this.loginService).getScene(window)));
         box.getChildren().add(cancel);
         int top = 0, right = 5, bottom = 0, left = 5;
         HBox.setMargin(cancel, new Insets(top, right, bottom, left));
@@ -129,7 +130,7 @@ public class NewBillUi {
         Button save = new Button("Save");
         save.setOnAction((ActionEvent event) -> {
             saveBill();
-            window.setScene(new HistoryUi(this.historyService, this.loginService).buildGui(window));
+            window.setScene(new HistoryUi(this.historyService, this.loginService).getScene(window));
         });
         box.getChildren().add(save);
         top = 0;

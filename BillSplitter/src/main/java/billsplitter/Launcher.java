@@ -31,14 +31,14 @@ public class Launcher extends Application {
     
     @Override
     public void start(Stage window) {
-        window.setScene(this.loginUi.buildGui(window));
+        window.setScene(this.loginUi.getScene(window));
         window.setTitle("Bill Splitter");
         window.show();
     }
     
     @Override
     public void stop() {
-        System.out.println("sovellus sulkeutuu");
+        System.out.println("Application closing");
     }
     
 }

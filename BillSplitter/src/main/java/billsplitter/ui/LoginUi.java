@@ -20,7 +20,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class LoginUi {
+public class LoginUi implements Ui {
     
     private final HistoryService historyService;
     private final LoginService loginService;
@@ -38,9 +38,10 @@ public class LoginUi {
         
     }
     
-    public Scene buildGui(Stage window) {
+    @Override
+    public Scene getScene(Stage window) {
         
-        GridPane grid = buildGrid(window);
+        GridPane grid = getGrid(window);
         VBox box = new VBox();
         Scene scene = new Scene(box);
         box.getChildren().add(grid);
@@ -48,7 +49,7 @@ public class LoginUi {
         return scene;
     }
 
-    private GridPane buildGrid(Stage window) {
+    private GridPane getGrid(Stage window) {
         
         // Creating the GridPane
         GridPane grid = new GridPane();
@@ -71,7 +72,7 @@ public class LoginUi {
         row++;
         grid.add(this.username, col, row);
         row++;
-        grid.add(buildLoginButton(window), col, row);
+        grid.add(getLoginButton(window), col, row);
 
         // Heading (create new user)
         row += 4;
@@ -90,12 +91,12 @@ public class LoginUi {
         row++;
         grid.add(this.newUsername, col, row);
         row++;
-        grid.add(buildCreateButton(window), col, row);
+        grid.add(getCreateButton(window), col, row);
         
         return grid;
     }
 
-    private Node buildLoginButton(Stage window) {
+    private Node getLoginButton(Stage window) {
         
         Button login = new Button("Login");
         login.setOnAction((ActionEvent event) -> {
@@ -103,7 +104,7 @@ public class LoginUi {
             User user = this.loginService.logIn(usernameText);
             if (user instanceof User) {
                 this.historyService.setUser(user);
-                window.setScene(new HistoryUi(this.historyService, this.loginService).buildGui(window));
+                window.setScene(new HistoryUi(this.historyService, this.loginService).getScene(window));
             } else {
                 this.username.clear();
                 Alert a = new Alert(AlertType.ERROR);
@@ -116,7 +117,7 @@ public class LoginUi {
         return login;
     }
 
-    private Node buildCreateButton(Stage window) {
+    private Node getCreateButton(Stage window) {
         
         Button create = new Button("Create");
         create.setOnAction((ActionEvent event) -> {
@@ -124,10 +125,10 @@ public class LoginUi {
             String[] message = response.split(";");
             if ("ERROR".equals(message[0])) {
                 System.out.println(message[1]);
-                createAlert(AlertType.ERROR, "ERROR", message[1]).show();
+                getAlert(AlertType.ERROR, "ERROR", message[1]).show();
             } else {
                 System.out.println(message[1]);
-                createAlert(AlertType.INFORMATION, "SUCCESS", message[1]).show();
+                getAlert(AlertType.INFORMATION, "SUCCESS", message[1]).show();
                 this.newName.clear();
                 this.newUsername.clear();
             }
@@ -136,7 +137,7 @@ public class LoginUi {
         return create;
     }
     
-    private Alert createAlert(AlertType alertType, String title, String message) {
+    private Alert getAlert(AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
         alert.setContentText(message);

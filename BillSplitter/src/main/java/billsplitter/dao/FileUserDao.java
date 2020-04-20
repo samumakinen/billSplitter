@@ -51,10 +51,14 @@ public final class FileUserDao implements UserDao {
     
     @Override
     public User getUser(String username) throws Exception {
+        User user = null;
         PreparedStatement p = this.db.prepareStatement("SELECT name FROM Users WHERE username = ?");
         p.setString(1, username);
         ResultSet r = p.executeQuery();
-        return new User(r.getString("name"), username);
+        
+        if (r.next()) {
+            user = new User(r.getString("name"), username);
+        }
+        return user;
     }
-    
 }

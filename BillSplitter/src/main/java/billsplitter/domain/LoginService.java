@@ -14,7 +14,7 @@ public class LoginService {
         try {
             return this.fileUserDao.getUser(username);
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println("LoginService 1 " + e);
         }
         return null;
     }
@@ -33,7 +33,7 @@ public class LoginService {
         try {
             this.fileUserDao.create(new User(name, username));
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println("LoginService 2 " + e);
         }
         return "SUCCESS;User " + name + " has been created with username " + username;
     }
@@ -43,7 +43,7 @@ public class LoginService {
     }
     
     private boolean userDetailsHaveIllegalCharacter(String name, String username) {
-        CharSequence[] illegalChars = { ";", ":", ","};
+        CharSequence[] illegalChars = { ";", ":", ",", "'"};
         for (CharSequence c : illegalChars) {
             if (username.contains(c) || name.contains(c)) {
                 return true;
@@ -54,11 +54,9 @@ public class LoginService {
     
     private boolean usernameExists(String username) {
         try {
-            if (this.fileUserDao.getAll().stream().anyMatch(u -> u.getUsername().equals(username))) {
-                return true;
-            }
+            return this.fileUserDao.getUser(username) != null;
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println("LoginService 3 " + e);
         }
         return false;
     }

@@ -18,7 +18,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class HistoryUi {
+public class HistoryUi implements Ui {
+    
     private final HistoryService historyService;
     private final LoginService loginService;
     
@@ -27,10 +28,11 @@ public class HistoryUi {
         this.loginService = loginService;
     }
     
-    public Scene buildGui(Stage window) {
+    @Override
+    public Scene getScene(Stage window) {
         
-        ListView listView = buildListView();
-        GridPane grid = buildGrid(window);
+        ListView listView = GetListView();
+        GridPane grid = getGrid(window);
         VBox box = new VBox();
         Scene scene = new Scene(box);
         box.getChildren().add(grid);
@@ -39,7 +41,7 @@ public class HistoryUi {
         return scene;
     }
 
-    private GridPane buildGrid(Stage window) {
+    private GridPane getGrid(Stage window) {
         
         // Creating the GridPane
         GridPane grid = new GridPane();
@@ -50,17 +52,17 @@ public class HistoryUi {
         grid.setPadding(new Insets(top, right, bottom, left));
         
         int col = 0, row = 0, colSpan = 2, rowSpan = 1;
-        grid.add(buildLogoutButton(window), col, row);
+        grid.add(getLogoutButton(window), col, row);
         
         col++;
         Button t2 = new Button("Tee uusi");
-        t2.setOnAction((ActionEvent event) -> window.setScene(new NewBillUi(this.historyService, this.loginService).buildGui(window)));
+        t2.setOnAction((ActionEvent event) -> window.setScene(new NewBillUi(this.historyService, this.loginService).getScene(window)));
         grid.add(t2, col, row);
         
         return grid;
     }
     
-    private ListView buildListView() {
+    private ListView GetListView() {
         
         ListView<String> list = new ListView<>();
         ObservableList<String> items = FXCollections.observableArrayList();
@@ -75,12 +77,12 @@ public class HistoryUi {
         return list;
     }
     
-    private Node buildLogoutButton(Stage window) {
+    private Node getLogoutButton(Stage window) {
         
         Button logout = new Button("Log out");
         logout.setOnAction((ActionEvent event) -> {
             this.historyService.setUser(null);
-            window.setScene(new LoginUi(this.historyService, this.loginService).buildGui(window));
+            window.setScene(new LoginUi(this.historyService, this.loginService).getScene(window));
         });
         
         return logout;
