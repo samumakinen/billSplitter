@@ -4,7 +4,9 @@
 
 Download a runnable **jar** file from the [releases](https://github.com/samumakinen/ot-harjoitustyo/releases) page. Choose the latest release from the top of the page.
 
-Place the **jar** file in a location of your choosing and run the application by double clicking on the **jar** file. Please keep in mind, that a **billsplitter.db** file is created into the location that you store your **jar** file in. This file will be needed to save the changes you make in the application.
+Place the **jar** file in a location of your choosing and run the application by double clicking on the **jar** file.
+
+**Attention!** Please keep in mind, that a **billsplitter.db** file is created into the location that you store your **jar** file in. This file will be needed to save the changes you make in the application.
 
 ### Running from command line
 
