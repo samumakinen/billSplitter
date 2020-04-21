@@ -22,8 +22,9 @@ public class HistoryService {
         return this.user;
     }
     
-    public void createBill(String title, String description, int payers, double amount) {
-        Bill bill = new Bill(this.user.getUsername(), title, description, payers, amount);
+    public void createBill(String title, String description, int payers, double amount, double result) {
+        Bill bill = new Bill(this.user.getUsername(), title, description, payers, amount, result
+        );
         try {
             this.fileBillDao.create(bill);
         } catch (Exception e) {

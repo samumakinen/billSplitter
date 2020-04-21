@@ -3,6 +3,8 @@ package billsplitter.ui;
 
 import billsplitter.domain.HistoryService;
 import billsplitter.domain.LoginService;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -19,15 +21,26 @@ import javafx.stage.Stage;
 
 public class NewBillUi implements Ui {
     
-    private final TextField billTitle = new TextField();
-    private final TextArea billDescription = new TextArea();
-    private final TextField billPayers = new TextField();
-    private final TextField billAmount = new TextField();
+    private final TextField billTitle;
+    private final TextArea billDescription;
+    private final TextField billPayers;
+    private final TextField billAmount;
+    private final Label result;
     private final HistoryService historyService;
     private final LoginService loginService;
-    private String amountPerPerson = "";
     
     public NewBillUi(HistoryService historyService, LoginService loginService) {
+        this.billTitle = new TextField();
+        this.billDescription = new TextArea();
+        this.billPayers = new TextField();
+        this.billPayers.textProperty().addListener((obs, oldText, newText) -> {
+            updateResultText();
+        });
+        this.billAmount = new TextField();
+        this.billAmount.textProperty().addListener((obs, oldText, newText) -> {
+            updateResultText();
+        });
+        this.result = new Label();
         this.historyService = historyService;
         this.loginService = loginService;
     }
@@ -87,12 +100,7 @@ public class NewBillUi implements Ui {
         grid.add(this.billAmount, col, row);
         
         row++;
-        grid.add(new Label(this.amountPerPerson), col, row);
-        
-        row++;
-        Button btn = new Button("Calculate");
-        btn.setOnAction((ActionEvent event) -> updateAmount());
-        grid.add(btn, col, row);
+        grid.add(this.result, col, row);
         
         // Buttons at the bottom
         HBox hbox = getButtons(window);
@@ -155,20 +163,48 @@ public class NewBillUi implements Ui {
         String description = this.billDescription.getText();
         int payers = Integer.valueOf(this.billPayers.getText());
         double amount = Double.valueOf(this.billAmount.getText());
-        this.historyService.createBill(title, description, payers, amount);
+        double result = Double.valueOf(getResult());
+        this.historyService.createBill(title, description, payers, amount, result);
     }
 
-    private void updateAmount() {
-        
-        if (!this.billPayers.getText().isEmpty() && !this.billAmount.getText().isEmpty()) {
-            int payers = Integer.parseInt(this.billPayers.getText());
-            double amount = Double.parseDouble(this.billAmount.getText());
-            double result = amount / payers;
-            this.amountPerPerson = "Amount per person: " + String.valueOf(result);
-            System.out.println("result " + result);
+    private void updateResultText() {
+        String text = "Amount per person: ";
+        String result = getResult();
+        if (result != null) {
+            this.result.setText(text + result);
         } else {
-            System.out.println("Molemmissa kentissä pitää olla jotain!");
+            this.result.setText(text);
         }
     }
     
+    private String getResult() {
+        String result = null;
+        
+        if (this.billPayers.getText().isBlank() || this.billAmount.getText().isBlank()) {
+            return null;
+        } else {
+            int payers = -1;
+            double amount = -1;
+            
+            String payersS = this.billPayers.getText().trim();
+            String amountS = this.billAmount.getText().trim();
+            
+            if (payersS.matches("\\d+") && amountS.matches("-?\\d+(\\.\\d+)?")) {
+                payers = Integer.valueOf(payersS);
+                amount = Double.valueOf(amountS);
+            }
+            if (payers >= 0 && amount >= 0) {
+                double splitted = amount / (1.0 * payers);
+
+                DecimalFormatSymbols sym = new DecimalFormatSymbols();
+                sym.setDecimalSeparator('.');
+                DecimalFormat df = new DecimalFormat("0.00", sym);
+                
+                result = df.format(splitted);
+            } else {
+                return null;
+            }
+        }        
+        return result;
+    }
 }

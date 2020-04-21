@@ -8,22 +8,25 @@ public class Bill {
     private final String description;
     private final int payers;
     private final double amount;
+    private final double result;
     
-    public Bill(String username, String title, String description, int payers, double amount) {   
+    public Bill(String username, String title, String description, int payers, double amount, double result) {   
         this.username = username;
         this.title = title;
         this.description = description;
         this.payers = payers;
         this.amount = amount;
+        this.result = result;
     }
     
-    public Bill(int id, String username, String title, String description, int payers, double amount) {   
+    public Bill(int id, String username, String title, String description, int payers, double amount, double result) {   
         this.id = id;
         this.username = username;
         this.title = title;
         this.description = description;
         this.payers = payers;
         this.amount = amount;
+        this.result = result;
     }
     
     public int getId() {
@@ -43,5 +46,8 @@ public class Bill {
     }
     public double getAmount() {
         return this.amount;
+    }
+    public double getResult() {
+        return this.result;
     }
 }
