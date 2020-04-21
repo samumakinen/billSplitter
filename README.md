@@ -4,7 +4,7 @@ This application helps users when purchasing something for a group of people. On
 
 [Architecture description](documentation/architecture.md)
 
-[Manual](documentation/manual.md) TBA
+[Manual](documentation/manual.md)
 
 [Software requirement specification (SRS)](documentation/srs.md)
 
