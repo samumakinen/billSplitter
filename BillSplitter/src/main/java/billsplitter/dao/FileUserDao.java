@@ -18,6 +18,13 @@ public final class FileUserDao implements UserDao {
         s.execute("CREATE TABLE IF NOT EXISTS Users (username TEXT PRIMARY KEY, name TEXT)");
     }
 
+    /**
+     * Tries to create a new User into the database.
+     * 
+     * @param user User to be created
+     * @throws java.lang.Exception SQLException
+     * 
+     */
     @Override
     public void create(User user) throws Exception {
         PreparedStatement p = this.db.prepareStatement("INSERT INTO Users (username,name) VALUES (?,?)");
@@ -26,6 +33,14 @@ public final class FileUserDao implements UserDao {
         p.execute();
     }
 
+    /**
+     * Tries to get all users from the database.
+     * 
+     * @throws java.lang.Exception SQLException
+     * 
+     * @return List of all users.
+     * 
+     */
     @Override
     public List<User> getAll() throws Exception {
         List<User> users = new ArrayList<>();
@@ -37,6 +52,16 @@ public final class FileUserDao implements UserDao {
         return users;
     }
 
+    /**
+     * Tries to get a specific user from the database by username.
+     * 
+     * @param username String
+     * 
+     * @throws java.lang.Exception SQLException
+     * 
+     * @return User with a matching username.
+     * 
+     */
     @Override
     public User getUser(String username) throws Exception {
         User user = null;

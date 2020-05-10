@@ -49,6 +49,12 @@ public class NewBillUi implements Ui {
         this.loginService = loginService;
     }
 
+    /**
+     * Constructor for modifying a bill.
+     *
+     * @param   id   Id of the bill to be modified.
+     *
+     */
     NewBillUi(HistoryService historyService, LoginService loginService, int id) {
         this.billTitle = new TextField();
         this.billDescription = new TextArea();
@@ -72,6 +78,13 @@ public class NewBillUi implements Ui {
         this.billAmount.setText(String.valueOf(this.bill.getAmount()));
     }
     
+    /**
+     * Returns the scene for the new bill screen.
+     *
+     * @param   window   Stage object
+     *
+     * @return Scene
+     */
     @Override
     public Scene getScene(Stage window) {
         
@@ -83,6 +96,13 @@ public class NewBillUi implements Ui {
         return scene;
     }
     
+    /**
+     * Returns a gridpane for the contents of the new bill screen.
+     *
+     * @param   window   Stage object
+     *
+     * @return GridPane
+     */
     private GridPane getGrid(Stage window) {
         
         // Creating the GridPane
@@ -142,6 +162,13 @@ public class NewBillUi implements Ui {
         return grid;
     }
     
+    /**
+     * Returns a HBox with the cancel, clear and save -buttons.
+     *
+     * @param   window   Stage object
+     *
+     * @return GridPane
+     */
     private HBox getButtons(Stage window) {
         
         // Create HBox
@@ -188,7 +215,15 @@ public class NewBillUi implements Ui {
         return box;
     }
     
-        private HBox getAltButtons(Stage window) {
+    /**
+     * This is for getting the alternative buttons for modifying a bill,
+     * returns a HBox with the cancel, delete and save -buttons.
+     *
+     * @param   window   Stage object
+     *
+     * @return GridPane
+     */
+    private HBox getAltButtons(Stage window) {
         
         // Create HBox
         HBox box = new HBox();
@@ -238,14 +273,22 @@ public class NewBillUi implements Ui {
         return box;
     }
 
+    /**
+     * Clears the text fields.
+     *
+     */
     private void clearText() {
-        
         this.billTitle.clear();
         this.billDescription.clear();
         this.billPayers.clear();
         this.billAmount.clear();
     }
 
+    /**
+     * Tries to save a bill to the history, returns true if successful.
+     *
+     * @return boolean
+     */
     private boolean saveBill() {
         
         String title = "";
@@ -267,6 +310,10 @@ public class NewBillUi implements Ui {
         }
     }
 
+    /**
+     * Updates the result field.
+     *
+     */
     private void updateResultText() {
         String text = "Amount per person: ";
         String result = getResult();
@@ -277,6 +324,11 @@ public class NewBillUi implements Ui {
         }
     }
     
+    /**
+     * Returns the contents of the result field. 
+     *
+     * @return String
+     */
     private String getResult() {
         String result = null;
         

@@ -18,6 +18,13 @@ public final class FileBillDao implements BillDao {
         s.execute("CREATE TABLE IF NOT EXISTS Bills (id INTEGER PRIMARY KEY, username TEXT, title TEXT, description TEXT, payers INTEGER, amount DOUBLE, result DOUBLE)");
     }
 
+    /**
+     * Tries to create a new Bill into the database.
+     * 
+     * @param bill Bill to be created
+     * @throws java.lang.Exception SQLException
+     * 
+     */
     @Override
     public void create(Bill bill) throws Exception {
         PreparedStatement p = this.db.prepareStatement("INSERT INTO Bills (username,title,description,payers,amount, result) VALUES (?,?,?,?,?,?)");
@@ -30,6 +37,14 @@ public final class FileBillDao implements BillDao {
         p.execute();
     }
 
+    /**
+     * Tries to get all bills from the database.
+     * 
+     * @throws java.lang.Exception SQLException
+     * 
+     * @return List of all bills.
+     * 
+     */
     @Override
     public List<Bill> getAll() throws Exception {
         List<Bill> bills = new ArrayList<>();
@@ -41,6 +56,16 @@ public final class FileBillDao implements BillDao {
         return bills;
     }
 
+    /**
+     * Tries to get a specific bill from the database by bill's id number.
+     * 
+     * @param id int
+     * 
+     * @throws java.lang.Exception SQLException
+     * 
+     * @return Bill with a matching id number.
+     * 
+     */
     @Override
     public Bill getBill(int id) throws Exception {
         Bill bill = null;
@@ -53,6 +78,14 @@ public final class FileBillDao implements BillDao {
         return bill;
     }
 
+    /**
+     * Tries to delete a specific bill from the database by id number.
+     * 
+     * @param id int
+     * 
+     * @throws java.lang.Exception SQLException
+     * 
+     */
     @Override
     public void delete(int id) throws Exception {
         PreparedStatement p = this.db.prepareStatement("DELETE FROM Bills WHERE id = ?");

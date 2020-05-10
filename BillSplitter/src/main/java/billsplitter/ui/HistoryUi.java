@@ -29,6 +29,13 @@ public class HistoryUi implements Ui {
         this.loginService = loginService;
     }
     
+    /**
+     * Returns the scene for the history screen.
+     *
+     * @param   window   Stage object
+     *
+     * @return Scene
+     */
     @Override
     public Scene getScene(Stage window) {
         
@@ -42,6 +49,13 @@ public class HistoryUi implements Ui {
         return scene;
     }
 
+    /**
+     * Returns a gridpane for the contents of the history screen.
+     *
+     * @param   window   Stage object
+     *
+     * @return GridPane
+     */
     private GridPane getGrid(Stage window) {
         
         // Creating the GridPane
@@ -63,6 +77,13 @@ public class HistoryUi implements Ui {
         return grid;
     }
     
+    /**
+     * Returns a listview with the titles of the current user's bills.
+     *
+     * @param   window   Stage object
+     *
+     * @return ListView
+     */
     private ListView GetListView(Stage window) {
         
         ListView<Bill> list = new ListView<>();
@@ -82,6 +103,13 @@ public class HistoryUi implements Ui {
         return list;
     }
     
+    /**
+     * Returns a logout button.
+     *
+     * @param   window   Stage object
+     *
+     * @return Node
+     */
     private Node getLogoutButton(Stage window) {
         
         Button logout = new Button("Log out");

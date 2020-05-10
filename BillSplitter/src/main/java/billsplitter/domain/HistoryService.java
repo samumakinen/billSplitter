@@ -22,6 +22,19 @@ public class HistoryService {
         return this.user;
     }
     
+    /**
+     * Creates a new Bill -object with the given information and
+     * calls the create(Bill) -method in FileBillDao.
+     *
+     * @param title String
+     * @param description String
+     * @param payers int
+     * @param amount double
+     * @param result double
+     *
+     * @see billsplitter.dao.FileBillDao#create(billsplitter.domain.Bill)
+     * 
+     */
     public void createBill(String title, String description, int payers, double amount, double result) {
         Bill bill = new Bill(this.user.getUsername(), title, description, payers, amount, result);
         try {
@@ -31,17 +44,39 @@ public class HistoryService {
         }
     }
     
+    /**
+     * Returns all current user's bills by getting all bills from the database
+     * with the getAll() -method in FileBillDao
+     * and filtering out bills that do not belong to the current user.
+     *
+     * @see billsplitter.dao.FileBillDao#getAll()
+     * 
+     * @return List with the bills.
+     * 
+     */
     public List<Bill> getAll() {
         List<Bill> bills = new ArrayList<>();
         
         try {
-            bills = this.fileBillDao.getAll().stream().filter(bill -> bill.getUsername().equals(this.user.getUsername())).collect(Collectors.toList());
+            bills = this.fileBillDao.getAll().stream().filter(bill -> {
+                return bill.getUsername().equals(this.user.getUsername());
+            }).collect(Collectors.toList());
         } catch (Exception e) {
             System.out.println("HistoryService.getAll() " + e);
         }
         return bills;
     }
     
+    /**
+     * Returns a specific bill by the id number.
+     *
+     * @param id int
+     * 
+     * @see billsplitter.dao.FileBillDao#getBill(int)
+     * 
+     * @return Bill with the matching id number.
+     * 
+     */
     public Bill getBill(int id) {
         try {
             return this.fileBillDao.getBill(id);
@@ -51,6 +86,14 @@ public class HistoryService {
         return null;
     }
     
+    /**
+     * Deletes a bill with matching id number from the database.
+     *
+     * @param id int
+     * @see billsplitter.dao.FileBillDao#delete(int)
+     * 
+     * 
+     */
     public void deleteBill(int id) {
         try {
             this.fileBillDao.delete(id);

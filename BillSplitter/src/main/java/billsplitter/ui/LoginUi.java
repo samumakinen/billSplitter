@@ -38,6 +38,13 @@ public class LoginUi implements Ui {
         
     }
     
+    /**
+     * Returns the scene for the login screen.
+     *
+     * @param   window   Stage object
+     *
+     * @return Scene
+     */
     @Override
     public Scene getScene(Stage window) {
         
@@ -49,9 +56,15 @@ public class LoginUi implements Ui {
         return scene;
     }
 
+    /**
+     * Returns a gridpane for the contents of the login screen.
+     *
+     * @param   window   Stage object
+     *
+     * @return GridPane
+     */
     private GridPane getGrid(Stage window) {
         
-        // Creating the GridPane
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
         grid.setHgap(10);
@@ -59,14 +72,12 @@ public class LoginUi implements Ui {
         int top = 5, right = 20, bottom = 15, left = 20;
         grid.setPadding(new Insets(top, right, bottom, left));
 
-        // Heading (login)
         Text heading1 = new Text("Existing user login:");
         heading1.setId("heading");
         heading1.setStyle("-fx-font-size:22; -fx-font-weight:bold");
         int col = 0, row = 0, colSpan = 2, rowSpan = 1;
         grid.add(heading1, col, row, colSpan, rowSpan);
         
-        // Login
         row += 2;
         grid.add(new Label("Username:"), col, row);
         row++;
@@ -74,14 +85,12 @@ public class LoginUi implements Ui {
         row++;
         grid.add(getLoginButton(window), col, row);
 
-        // Heading (create new user)
         row += 4;
         Text heading2 = new Text("Create a new user:");
         heading2.setId("heading");
         heading2.setStyle("-fx-font-size:22; -fx-font-weight:bold");
         grid.add(heading2, col, row, colSpan, rowSpan);
         
-        // Create new user
         row += 2;
         grid.add(new Label("Your name:"), col, row);
         row++;
@@ -96,6 +105,13 @@ public class LoginUi implements Ui {
         return grid;
     }
 
+    /**
+     * Returns a login button.
+     *
+     * @param   window   Stage object
+     *
+     * @return Node
+     */
     private Node getLoginButton(Stage window) {
         
         Button login = new Button("Login");
@@ -117,6 +133,13 @@ public class LoginUi implements Ui {
         return login;
     }
 
+    /**
+     * Returns a create new user -button.
+     *
+     * @param   window   Stage object
+     *
+     * @return Node
+     */
     private Node getCreateButton(Stage window) {
         
         Button create = new Button("Create");
@@ -134,7 +157,16 @@ public class LoginUi implements Ui {
         
         return create;
     }
-    
+
+    /**
+     * Returns alert constructed of the given parameters:
+     *
+     * @param   alertType   AlertType
+     * @param   title   String
+     * @param   message   String
+     * 
+     * @return Node
+     */
     private Alert getAlert(AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
