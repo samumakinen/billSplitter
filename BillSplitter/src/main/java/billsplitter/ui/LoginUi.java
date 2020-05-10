@@ -124,10 +124,8 @@ public class LoginUi implements Ui {
             String response = this.loginService.createUser(this.newName.getText(), this.newUsername.getText());
             String[] message = response.split(";");
             if ("ERROR".equals(message[0])) {
-                System.out.println(message[1]);
                 getAlert(AlertType.ERROR, "ERROR", message[1]).show();
             } else {
-                System.out.println(message[1]);
                 getAlert(AlertType.INFORMATION, "SUCCESS", message[1]).show();
                 this.newName.clear();
                 this.newUsername.clear();

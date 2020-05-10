@@ -5,6 +5,7 @@ import billsplitter.domain.Bill;
 import billsplitter.domain.HistoryService;
 import billsplitter.domain.LoginService;
 import java.util.List;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -31,7 +32,7 @@ public class HistoryUi implements Ui {
     @Override
     public Scene getScene(Stage window) {
         
-        ListView listView = GetListView();
+        ListView listView = GetListView(window);
         GridPane grid = getGrid(window);
         VBox box = new VBox();
         Scene scene = new Scene(box);
@@ -62,17 +63,21 @@ public class HistoryUi implements Ui {
         return grid;
     }
     
-    private ListView GetListView() {
+    private ListView GetListView(Stage window) {
         
-        ListView<String> list = new ListView<>();
-        ObservableList<String> items = FXCollections.observableArrayList();
+        ListView<Bill> list = new ListView<>();
+        ObservableList<Bill> items = FXCollections.observableArrayList();
         List<Bill> bills = this.historyService.getAll();
         
         bills.forEach((bill) -> {
-            items.add(bill.getTitle());
+            items.add(bill);
         });
         
         list.setItems(items);
+        
+        list.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends Bill> observable, Bill oldValue, Bill newValue) -> {
+            window.setScene(new NewBillUi(this.historyService, this.loginService, newValue.getId()).getScene(window));
+        });
         
         return list;
     }

@@ -41,7 +41,6 @@ public class Launcher extends Application {
     
     @Override
     public void stop() {
-        System.out.println("Application closing");
     }
     
 }

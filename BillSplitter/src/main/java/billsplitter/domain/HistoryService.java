@@ -23,8 +23,7 @@ public class HistoryService {
     }
     
     public void createBill(String title, String description, int payers, double amount, double result) {
-        Bill bill = new Bill(this.user.getUsername(), title, description, payers, amount, result
-        );
+        Bill bill = new Bill(this.user.getUsername(), title, description, payers, amount, result);
         try {
             this.fileBillDao.create(bill);
         } catch (Exception e) {
@@ -41,6 +40,23 @@ public class HistoryService {
             System.out.println("HistoryService.getAll() " + e);
         }
         return bills;
+    }
+    
+    public Bill getBill(int id) {
+        try {
+            return this.fileBillDao.getBill(id);
+        } catch (Exception e) {
+            System.out.println("HistoryService.getBill() " + e);
+        }
+        return null;
+    }
+    
+    public void deleteBill(int id) {
+        try {
+            this.fileBillDao.delete(id);
+        } catch (Exception e) {
+            System.out.println("HistoryService.deleteBill() " + e);
+        }
     }
     
 }

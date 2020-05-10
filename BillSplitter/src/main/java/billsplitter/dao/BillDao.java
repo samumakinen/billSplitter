@@ -11,5 +11,7 @@ public interface BillDao {
     List<Bill> getAll() throws Exception;
     
     public Bill getBill(int id) throws Exception;
+
+    public void delete(int id) throws Exception;
     
 }

@@ -1,6 +1,7 @@
 
 package billsplitter.ui;
 
+import billsplitter.domain.Bill;
 import billsplitter.domain.HistoryService;
 import billsplitter.domain.LoginService;
 import java.text.DecimalFormat;
@@ -9,6 +10,8 @@ import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import static javafx.scene.control.Alert.AlertType.ERROR;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -28,6 +31,7 @@ public class NewBillUi implements Ui {
     private final Label result;
     private final HistoryService historyService;
     private final LoginService loginService;
+    private Bill bill;
     
     public NewBillUi(HistoryService historyService, LoginService loginService) {
         this.billTitle = new TextField();
@@ -43,6 +47,29 @@ public class NewBillUi implements Ui {
         this.result = new Label();
         this.historyService = historyService;
         this.loginService = loginService;
+    }
+
+    NewBillUi(HistoryService historyService, LoginService loginService, int id) {
+        this.billTitle = new TextField();
+        this.billDescription = new TextArea();
+        this.billPayers = new TextField();
+        this.billPayers.textProperty().addListener((obs, oldText, newText) -> {
+            updateResultText();
+        });
+        this.billAmount = new TextField();
+        this.billAmount.textProperty().addListener((obs, oldText, newText) -> {
+            updateResultText();
+        });
+        this.result = new Label();
+        this.historyService = historyService;
+        this.loginService = loginService;
+        
+        this.bill = historyService.getBill(id);
+        
+        this.billTitle.setText(this.bill.getTitle());
+        this.billDescription.setText(this.bill.getDescription());
+        this.billPayers.setText(String.valueOf(this.bill.getPayers()));
+        this.billAmount.setText(String.valueOf(this.bill.getAmount()));
     }
     
     @Override
@@ -103,7 +130,12 @@ public class NewBillUi implements Ui {
         grid.add(this.result, col, row);
         
         // Buttons at the bottom
-        HBox hbox = getButtons(window);
+        HBox hbox;
+        if (this.bill != null) {
+            hbox = getAltButtons(window);
+        } else {
+            hbox = getButtons(window);
+        }
         row += rowSpan;
         grid.add(hbox, col, row);
         
@@ -136,8 +168,65 @@ public class NewBillUi implements Ui {
         // Save
         Button save = new Button("Save");
         save.setOnAction((ActionEvent event) -> {
-            saveBill();
+            Boolean success = saveBill();
+            if (success) {
+                window.setScene(new HistoryUi(this.historyService, this.loginService).getScene(window));
+            } else {
+                Alert alert = new Alert(ERROR);
+                alert.setTitle("ERROR");
+                alert.setContentText("All fields marked with a * must be filled!");
+                alert.show();
+            }
+        });
+        box.getChildren().add(save);
+        top = 0;
+        right = 5;
+        bottom = 0;
+        left = 0;
+        HBox.setMargin(save, new Insets(top, right, bottom, left));
+
+        return box;
+    }
+    
+        private HBox getAltButtons(Stage window) {
+        
+        // Create HBox
+        HBox box = new HBox();
+        box.setAlignment(Pos.BASELINE_CENTER);
+
+        // Cancel
+        Button cancel = new Button("Cancel");
+        cancel.setOnAction((ActionEvent event) -> window.setScene(new HistoryUi(this.historyService, this.loginService).getScene(window)));
+        box.getChildren().add(cancel);
+        int top = 0, right = 5, bottom = 0, left = 5;
+        HBox.setMargin(cancel, new Insets(top, right, bottom, left));
+
+        // Delete
+        Button delete = new Button("Delete");
+        delete.setOnAction((ActionEvent event) -> {
+            this.historyService.deleteBill(this.bill.getId());
             window.setScene(new HistoryUi(this.historyService, this.loginService).getScene(window));
+        });
+        box.getChildren().add(delete);
+        top = 0;
+        right = 5;
+        bottom = 0;
+        left = 0;
+        HBox.setMargin(delete, new Insets(top, right, bottom, left));
+
+        // Save
+        Button save = new Button("Save");
+        save.setOnAction((ActionEvent event) -> {
+            Boolean success = saveBill();
+            if (success) {
+                this.historyService.deleteBill(this.bill.getId());
+                window.setScene(new HistoryUi(this.historyService, this.loginService).getScene(window));
+            } else {
+                Alert alert = new Alert(ERROR);
+                alert.setTitle("ERROR");
+                alert.setContentText("All fields marked with a * must be filled!");
+                alert.show();
+            }
         });
         box.getChildren().add(save);
         top = 0;
@@ -157,14 +246,25 @@ public class NewBillUi implements Ui {
         this.billAmount.clear();
     }
 
-    private void saveBill() {
+    private boolean saveBill() {
         
-        String title = this.billTitle.getText();
-        String description = this.billDescription.getText();
-        int payers = Integer.valueOf(this.billPayers.getText());
-        double amount = Double.valueOf(this.billAmount.getText());
-        double result = Double.valueOf(getResult());
-        this.historyService.createBill(title, description, payers, amount, result);
+        String title = "";
+        title = this.billTitle.getText();
+        
+        String description = "";
+        description = this.billDescription.getText();
+        
+        String resultText = getResult();
+        
+        if (title.isBlank() || resultText == null) {
+            return false;
+        } else {
+            int payers = Integer.valueOf(this.billPayers.getText());
+            double amount = Double.valueOf(this.billAmount.getText());
+            double result = Double.valueOf(resultText);
+            this.historyService.createBill(title, description, payers, amount, result);
+            return true;
+        }
     }
 
     private void updateResultText() {

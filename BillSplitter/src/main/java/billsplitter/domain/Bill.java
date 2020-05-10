@@ -29,6 +29,11 @@ public class Bill {
         this.result = result;
     }
     
+    @Override
+    public String toString() {
+        return this.getTitle();
+    }
+    
     public int getId() {
         return this.id;
     }

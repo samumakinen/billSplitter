@@ -52,4 +52,11 @@ public final class FileBillDao implements BillDao {
         }
         return bill;
     }
+
+    @Override
+    public void delete(int id) throws Exception {
+        PreparedStatement p = this.db.prepareStatement("DELETE FROM Bills WHERE id = ?");
+        p.setInt(1, id);
+        p.execute();
+    }
 }
