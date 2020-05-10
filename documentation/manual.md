@@ -26,4 +26,4 @@ Existing users can log in by typing in their username and pressing the "Login" -
 
 A new user can be created by typing in a name and an original username, then pressing the "Create" -button.
 
-<img src=resources/loginscreen-login.png width="360">
+<img src=resources/loginscreen-create.png width="360">
