@@ -11,3 +11,4 @@ Day | Time | What was done
 19.03 | 8h | Moved from text files to SQLite database and .properties file. Fixing issues related to that
 20.04 | 6h | Release 1.0, documentation, fixing dao, add connection helper to handle sqlite db connection
 21.04 | 2h | Release 1.1, new bill view shows amount per payer, add manual
+10.05 | 6h | Release 1.2, single bill view, modification and deletion, javadoc, testing
