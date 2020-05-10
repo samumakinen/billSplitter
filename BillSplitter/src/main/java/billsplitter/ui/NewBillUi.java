@@ -105,7 +105,6 @@ public class NewBillUi implements Ui {
      */
     private GridPane getGrid(Stage window) {
         
-        // Creating the GridPane
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
         grid.setHgap(10);
@@ -113,7 +112,6 @@ public class NewBillUi implements Ui {
         int top = 5, right = 20, bottom = 15, left = 20;
         grid.setPadding(new Insets(top, right, bottom, left));
 
-        // Heading
         Text heading;
         if (this.bill != null) {
             heading = new Text("Modify or delete this bill");
@@ -125,13 +123,11 @@ public class NewBillUi implements Ui {
         int col = 0, row = 0, colSpan = 2, rowSpan = 1;
         grid.add(heading, col, row, colSpan, rowSpan);
         
-        // Title
         row++;
         grid.add(new Label("Title: *"), col, row);
         row++;
         grid.add(this.billTitle, col, row);
         
-        // Description
         row++;
         grid.add(new Label("Description:"), col, row);
         row++;
@@ -139,13 +135,11 @@ public class NewBillUi implements Ui {
         this.billDescription.setPrefSize(200, 100);
         this.billDescription.setWrapText(true);
         
-        // Number of payers
         row++;
         grid.add(new Label("Number of payers: *"), col, row);
         row++;
         grid.add(this.billPayers, col, row);
         
-        // Amount
         row++;
         grid.add(new Label("Amount: *"), col, row);
         row++;
@@ -154,7 +148,6 @@ public class NewBillUi implements Ui {
         row++;
         grid.add(this.result, col, row);
         
-        // Buttons at the bottom
         HBox hbox;
         if (this.bill != null) {
             hbox = getAltButtons(window);
@@ -176,18 +169,15 @@ public class NewBillUi implements Ui {
      */
     private HBox getButtons(Stage window) {
         
-        // Create HBox
         HBox box = new HBox();
         box.setAlignment(Pos.BASELINE_CENTER);
 
-        // Cancel
         Button cancel = new Button("Cancel");
         cancel.setOnAction((ActionEvent event) -> window.setScene(new HistoryUi(this.historyService, this.loginService).getScene(window)));
         box.getChildren().add(cancel);
         int top = 0, right = 5, bottom = 0, left = 5;
         HBox.setMargin(cancel, new Insets(top, right, bottom, left));
 
-        // Clear
         Button clear = new Button("Clear");
         clear.setOnAction((ActionEvent event) -> clearText());
         box.getChildren().add(clear);
@@ -197,7 +187,6 @@ public class NewBillUi implements Ui {
         left = 0;
         HBox.setMargin(clear, new Insets(top, right, bottom, left));
 
-        // Save
         Button save = new Button("Save");
         save.setOnAction((ActionEvent event) -> {
             Boolean success = saveBill();
@@ -230,18 +219,15 @@ public class NewBillUi implements Ui {
      */
     private HBox getAltButtons(Stage window) {
         
-        // Create HBox
         HBox box = new HBox();
         box.setAlignment(Pos.BASELINE_CENTER);
 
-        // Cancel
         Button cancel = new Button("Cancel");
         cancel.setOnAction((ActionEvent event) -> window.setScene(new HistoryUi(this.historyService, this.loginService).getScene(window)));
         box.getChildren().add(cancel);
         int top = 0, right = 5, bottom = 0, left = 5;
         HBox.setMargin(cancel, new Insets(top, right, bottom, left));
 
-        // Delete
         Button delete = new Button("Delete");
         delete.setOnAction((ActionEvent event) -> {
             this.historyService.deleteBill(this.bill.getId());
@@ -254,7 +240,6 @@ public class NewBillUi implements Ui {
         left = 0;
         HBox.setMargin(delete, new Insets(top, right, bottom, left));
 
-        // Save
         Button save = new Button("Save");
         save.setOnAction((ActionEvent event) -> {
             Boolean success = saveBill();

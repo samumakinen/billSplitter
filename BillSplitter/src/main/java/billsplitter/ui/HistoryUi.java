@@ -58,7 +58,6 @@ public class HistoryUi implements Ui {
      */
     private GridPane getGrid(Stage window) {
         
-        // Creating the GridPane
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
         grid.setHgap(10);
