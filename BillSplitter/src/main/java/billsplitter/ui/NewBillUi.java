@@ -114,7 +114,12 @@ public class NewBillUi implements Ui {
         grid.setPadding(new Insets(top, right, bottom, left));
 
         // Heading
-        Text heading = new Text("Create a new bill");
+        Text heading;
+        if (this.bill != null) {
+            heading = new Text("Modify or delete this bill");
+        } else {
+            heading = new Text("Create a new bill");
+        }
         heading.setId("heading");
         heading.setStyle("-fx-font-size:22; -fx-font-weight:bold");
         int col = 0, row = 0, colSpan = 2, rowSpan = 1;
