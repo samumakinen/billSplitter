@@ -14,6 +14,8 @@ This application helps users when purchasing something for a group of people. On
 
 ## Releases
 
+[1.2 (week 7)](https://github.com/samumakinen/ot-harjoitustyo/releases/tag/1.2)
+
 [1.1 (week 5)](https://github.com/samumakinen/ot-harjoitustyo/releases/tag/1.1)
 
 [1.0 (week 5)](https://github.com/samumakinen/ot-harjoitustyo/releases/tag/1.0)
