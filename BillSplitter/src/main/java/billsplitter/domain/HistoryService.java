@@ -2,7 +2,6 @@
 package billsplitter.domain;
 
 import billsplitter.dao.BillDao;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,7 +39,6 @@ public class HistoryService {
         try {
             this.fileBillDao.create(bill);
         } catch (Exception e) {
-            System.out.println("HistoryService.createBill() " + e);
         }
     }
     
@@ -55,14 +53,14 @@ public class HistoryService {
      * 
      */
     public List<Bill> getAll() {
-        List<Bill> bills = new ArrayList<>();
+        List<Bill> bills;
         
         try {
             bills = this.fileBillDao.getAll().stream().filter(bill -> {
                 return bill.getUsername().equals(this.user.getUsername());
             }).collect(Collectors.toList());
         } catch (Exception e) {
-            System.out.println("HistoryService.getAll() " + e);
+            return null;
         }
         return bills;
     }
@@ -81,9 +79,8 @@ public class HistoryService {
         try {
             return this.fileBillDao.getBill(id);
         } catch (Exception e) {
-            System.out.println("HistoryService.getBill() " + e);
+            return null;
         }
-        return null;
     }
     
     /**
@@ -94,12 +91,12 @@ public class HistoryService {
      * 
      * 
      */
-    public void deleteBill(int id) {
+    public boolean deleteBill(int id) {
         try {
             this.fileBillDao.delete(id);
+            return true;
         } catch (Exception e) {
-            System.out.println("HistoryService.deleteBill() " + e);
+            return false;
         }
     }
-    
 }

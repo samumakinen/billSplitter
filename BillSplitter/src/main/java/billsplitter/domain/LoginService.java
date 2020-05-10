@@ -25,9 +25,8 @@ public class LoginService {
         try {
             return this.fileUserDao.getUser(username);
         } catch (Exception e) {
-            System.out.println("LoginService.logIn() " + e);
+            return null;
         }
-        return null;
     }
     
     /**
@@ -56,7 +55,7 @@ public class LoginService {
         try {
             this.fileUserDao.create(new User(name, username));
         } catch (Exception e) {
-            System.out.println("LoginService.createUser() " + e);
+            return "ERROR;Something went wrong, please try again!";
         }
         return "SUCCESS;User " + name + " has been created with username " + username;
     }
@@ -108,9 +107,7 @@ public class LoginService {
         try {
             return this.fileUserDao.getUser(username) != null;
         } catch (Exception e) {
-            System.out.println("LoginService.usernameExists() " + e);
+            return false;
         }
-        return false;
     }
-
 }

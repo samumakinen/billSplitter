@@ -31,7 +31,12 @@ public class LoginServiceTest {
     
     @Test
     public void createMethodBothFieldsTooShort() {
-        assertEquals("ERROR;Both name and username need to be at least 3 characters long!", this.loginService.createUser("Xy", "ab"));
+        assertEquals("ERROR;Both name and username need to be at least 3 characters long!", this.loginService.createUser("Xz", "ab"));
+    }
+    
+    @Test
+    public void createMethodUsernameTooShort() {
+        assertEquals("ERROR;Both name and username need to be at least 3 characters long!", this.loginService.createUser("Test", "xe"));
     }
     
     @Test
