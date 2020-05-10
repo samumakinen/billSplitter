@@ -42,3 +42,8 @@ Generate and open checkstyle test report:
 ```
 mvn jxr:jxr checkstyle:checkstyle && open target/site/checkstyle.html
 ```
+Generate and open javadoc:
+```
+mvn javadoc:javadoc && open target/site/apidocs/index.html
+```
+
