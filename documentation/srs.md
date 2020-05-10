@@ -9,6 +9,7 @@ BSA has been designed in a compact vertical layout so that it does not take up m
 <img src=resources/uidraft.png>
 
 ## Basic functionality
+- **DONE** SQLite database for storing users and bills
 ### Login screen (before login)
 - **DONE** User can login with their username by typing it into the field
   - If username exists the user is transferred to their **history view**
@@ -16,12 +17,12 @@ BSA has been designed in a compact vertical layout so that it does not take up m
 - **DONE** User can create a new user by typing their name and a made up username into the correct fields
   - The length of the username must be atleast 3 characters
 ### History view (after login)
-- **DONE** User can browse bills by their titles
-- **DONE** User can enter the **new bill screen** to create a new bill
-- **DONE** User can log out of the app (goes back to the **login screen**)
-- Clicking a bill enters single **bill view**
-- User can remove bills
-- User can see the total number of bills in the history
+- **DONE** Browse bills by their titles
+- **DONE** Modify bills after creating them
+- **DONE** Remove bills from the history
+- **DONE** Enter the **new bill screen** to create a new bill
+- **DONE** Enter the **single bill view** by clicking a bill
+- **DONE** Log out of the app and return to the **login screen**
 ### New bill screen
 - **DONE** User can create a new bill
   - A bill must have a  *unique* title of at least 3 characters
@@ -31,11 +32,6 @@ BSA has been designed in a compact vertical layout so that it does not take up m
   - Bottom of the screen shows the share of each payer
 - **DONE** User can save the bill to the history (goes back to the **history view**)
 - **DONE** User can cancel the creation (goes back to the **history view**)
-### A single bill view
-- Bill opens as a html file, no editing possible
 ## Future development ideas
-- **DONE** SQLite database to enable advanced functionality
-- Ability to modify bills after creating them
-- Ability to add specific persons to each bill and keep track of who has payed off their share
-- Sort by Title, amount, etc.
-- Search by Title, amount, describtion, etc.
+- User can see the total number of bills in the history
+- Searching and sorting of the bills
