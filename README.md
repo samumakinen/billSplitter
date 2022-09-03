@@ -8,8 +8,6 @@ This application helps users when purchasing something for a group of people. On
 
 [Software requirement specification (SRS)](documentation/srs.md)
 
-[Testing documentation](documentation/testing.md) TBA
-
 [Timesheet](documentation/timesheet.md)
 
 ## Releases
